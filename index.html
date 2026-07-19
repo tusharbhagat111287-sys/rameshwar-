@@ -84,7 +84,7 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0}
 <div class="c">
   <div id="view-dash">
     <div class="card">
-      <div class="stat-hdr">🔴🙏 SARVOPARI DHAM 🙏🔴</div>
+      <div class="stat-hdr">🔴🙏 RAMESHWAR 🙏🔴</div>
       <div class="stat-row">
         <div id="clock" class="time-text">--:--</div>
         <img src="https://i.ibb.co/HpDS8yDF/apple-touch-icon.png" class="center-murti" alt="Bhagwan Darshan">
@@ -97,30 +97,30 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0}
     </div>
     
     <div class="q-grid">
-      <button id="bMan" class="q-btn b-blu" onclick="cmd('play_mangla')">Mangla</button>
-      <button id="bArt" class="q-btn b-org" onclick="cmd('play',1,9)">Arti &amp; Jay</button>
-      <button id="bTodA" class="q-btn b-yel" onclick="cmd('play_arti')">today's Arti</button>
-      <button id="bTodG" class="q-btn b-grn" onclick="cmd('play_godi')">today's Godi</button>
-      <button id="bD1" class="q-btn b-pur" onclick="cmd('play_dhun1')">Dhun Morning</button>
-      <button id="bD2" class="q-btn b-pur" onclick="cmd('play_dhun2')">Dhun Evening</button>
+      <button id="bMan" class="q-btn b-blu" onclick="cmd('MANGLA')">Mangla</button>
+      <button id="bArt" class="q-btn b-org" onclick="cmd('ARTI_JAY')">Arti &amp; Jay</button>
+      <button id="bTodA" class="q-btn b-yel" onclick="cmd('TODAY_ARTI')">today's Arti</button>
+      <button id="bTodG" class="q-btn b-grn" onclick="cmd('TODAY_GODI')">today's Godi</button>
+      <button id="bD1" class="q-btn b-pur" onclick="cmd('DHUN_MORN')">Dhun Morning</button>
+      <button id="bD2" class="q-btn b-pur" onclick="cmd('DHUN_EVEN')">Dhun Evening</button>
     </div>
     
     <div class="card">
-      <div class="t-row"><button class="sq-btn" onclick="prevTrack()">⏮</button><div class="t-name" id="trackName">-</div><button class="sq-btn" onclick="nextTrack()">⏭</button></div>
+      <div class="t-row"><button class="sq-btn" onclick="cmd('PREV')">⏮</button><div class="t-name" id="trackName">-</div><button class="sq-btn" onclick="cmd('NEXT')">⏭</button></div>
       <div class="cir-row">
         <div id="bDir" class="cir-btn c-pur">📂<select class="f-sel" id="trackSel" onchange="selectTrack(this)"><option value="" disabled selected>.</option></select></div>
-        <button class="cir-btn c-org" id="btnShuf" onclick="toggleShuffle()">🔀</button>
-        <button class="cir-btn c-org" id="btnRep" onclick="toggleRepeat()">🔁</button>
-        <button class="cir-btn c-pur" id="btnMute" onclick="toggleMute()">🔊</button>
+        <button class="cir-btn c-org" id="btnShuf" onclick="cmd('FOLDER_PLAY')">🔀</button>
+        <button class="cir-btn c-org" id="btnRep" onclick="cmd('REPEAT')">🔁</button>
+        <button class="cir-btn c-pur" id="btnMute" onclick="cmd('STOP')">⏹</button>
       </div>
     </div>
     
     <div class="card">
       <div class="c-row" style="margin-bottom:0">
-        <button class="tile-btn t-red" onclick="cmd('restart')"><span class="icon">💫</span>RESTART</button>
-        <button class="tile-btn t-blu" onclick="cmd('voldown')"><span class="icon">➖</span>VOL -</button>
+        <button class="tile-btn t-red" onclick="cmd('RESTART')"><span class="icon">💫</span>RESTART</button>
+        <button class="tile-btn t-blu" onclick="cmd('VOL_DOWN')"><span class="icon">➖</span>VOL -</button>
         <div class="vol-box" id="volNum">--</div>
-        <button class="tile-btn t-blu" onclick="cmd('volup')"><span class="icon">➕</span>VOL +</button>
+        <button class="tile-btn t-blu" onclick="cmd('VOL_UP')"><span class="icon">➕</span>VOL +</button>
       </div>
     </div>
     <div style="margin-top:25px;font-size:13px;color:#888;font-weight:bold;letter-spacing:1px;">SARVOPARI CLOUD EDITION SMARAN V2</div>
@@ -140,8 +140,9 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0}
 <div id="toast"></div>
 
 <script>
+// તમારી જ જૂની કી અહી નાખેલી રાખો
 const FB_CONFIG = { 
-  apiKey: "AIzaSyDCH0BCvuR1VafR1HaJ_JedVED1pP2ri-k", // (ફોટામાંથી જોઈને તમારી આખી apiKey અહી નાખો)
+  apiKey: "AIzaSyDCH0BCvuR1VafR1HaJ_JedVED1pP2ri-k", 
   authDomain: "rameshwar-smaran.firebaseapp.com", 
   databaseURL: "https://rameshwar-smaran-default-rtdb.firebaseio.com",
   projectId: "rameshwar-smaran", 
@@ -152,10 +153,8 @@ const FB_CONFIG = {
 const TRACKS = ["ORDA-SARADHAR","ORA AAVO-GURUJI","ORDA-KUNDAL","MHATMAY CHINTA","SUKH CHINTA MANI","MURTI CHINTA MANI","BLANCK","TERE DWAR apadyo","NVAL SNEHI nathji","Shriji daya karo","Aekalda kem rahevay","Prabhu tam vina","Tum mere swami","Kyare have dekhu","Dukhi divas ne rat","Mara nath mara nath","Aakhadiyo aklay","Dhun_Amrut swami","DHUN VED mandir","JAMO JAMO mara","CHESHTA","RAM & CHESHTA","Track 23","Track 24","Track 25","Track 26","Track 27","Track 28","Track 29","Track 30","Track 31","Track 32","Track 33","Track 34","Track 35","Track 36","Track 37","Track 38","Track 39","Track 40"];
 const S_CONF = [
   { t:'g', id:'gd', type:'slot', lbl:'Auto Godi', c:'#388e3c', v:['gPH','gPM','gPEH','gPEM','enGD'] },
-  { t:'g', id:'sg', type:'bell', lbl:'Sunday Godi', c:'#388e3c', v:['sunGH','sunGM','enSunG'] },
   { t:'g', id:'md', type:'slot', lbl:'Morning Dhun', c:'#fbc02d', v:['mDhSH','mDhSM','mDhEH','mDhEM','enMDh'] },
   { t:'g', id:'ed', type:'slot', lbl:'Evening Dhun', c:'#7b1fa2', v:['eDhSH','eDhSM','eDhEH','eDhEM','enEDh'] },
-  { t:'g', id:'ds', type:'slot', lbl:'Sun Dhun', c:'#1976d2', v:['dhSH','dhSM','dhEH','dhEM','enDS'] },
   { t:'lk', id:'bl1', type:'slot', lbl:'L1: Everyday', c:'#d32f2f', v:['bl1SH','bl1SM','bl1EH','bl1EM','enBl1'] },
   { t:'lk', id:'bl2', type:'slot', lbl:'L2: Everyday', c:'#d32f2f', v:['bl2SH','bl2SM','bl2EH','bl2EM','enBl2'] },
   { t:'lk', id:'bl3', type:'slot', lbl:'L3: Everyday', c:'#d32f2f', v:['bl3SH','bl3SM','bl3EH','bl3EM','enBl3'] }
@@ -167,8 +166,7 @@ function genSettings() {
   let html = {'g':'', 'lk':''};
   S_CONF.forEach(c => {
     let cd = `<div class='cd' style='border-left-color:${c.c}'><div class='hd'><span style='color:${c.c}'>${c.lbl}</span><label class='sw'><input type='checkbox' id='${c.id}_en'><span></span></label></div>`;
-    if(c.type==='bell') cd += `<div class='rw'><span>TIME</span><div>${timeIn(c.id+'_s')}</div></div>`;
-    else cd += `<div class='rw'><span>START</span><div>${timeIn(c.id+'_s')}</div></div><div class='rw'><span>STOP</span><div>${timeIn(c.id+'_e')}</div></div>`;
+    cd += `<div class='rw'><span>START</span><div>${timeIn(c.id+'_s')}</div></div><div class='rw'><span>STOP</span><div>${timeIn(c.id+'_e')}</div></div>`;
     html[c.t] += cd + `</div>`;
   });
   const cont = document.getElementById('settings-container');
@@ -188,7 +186,7 @@ function loadTrackList() {
   TRACKS.forEach((t, i) => { let opt = document.createElement("option"); opt.value = i+1; opt.text = (i+1)+". "+t; sel.appendChild(opt); });
 }
 
-function selectTrack(sel) { if(sel.value) { cmd('play', 4, sel.value); sel.selectedIndex = 0; } }
+function selectTrack(sel) { if(sel.value) { cmd('FOLDER_PLAY'); sel.selectedIndex = 0; } }
 
 function initFB() {
   firebase.initializeApp(FB_CONFIG); db = firebase.database();
@@ -201,8 +199,12 @@ function updateLocalClock() {
   let h12 = now.getHours() % 12 || 12; let ampm = now.getHours() >= 12 ? " PM" : " AM";
   let m = now.getMinutes().toString().padStart(2, '0'); let s = now.getSeconds().toString().padStart(2, '0');
   document.getElementById("clock").innerText = `${days[now.getDay()]} ${h12}:${m}:${s}${ampm}`;
-  if (lastStatusTime > 0 && (Date.now() - lastStatusTime > 5000)) {
-    document.getElementById("netBadge").className = "badge offline"; document.getElementById("netBadge").innerText = "OFFLINE";
+  
+  // Offline Check Logic
+  if (!navigator.onLine) {
+    document.getElementById("netBadge").className = "badge offline"; document.getElementById("netBadge").innerText = "OFFLINE/WIFI";
+  } else {
+    document.getElementById("netBadge").className = "badge"; document.getElementById("netBadge").innerText = "ONLINE";
   }
 }
 setInterval(updateLocalClock, 1000);
@@ -211,44 +213,36 @@ function listenStatus() {
   statusRef.on("value", snap => {
     if (!snap.exists()) return; const d = snap.val(); lastStatusTime = Date.now(); 
     if(d.statusMsg) {
-        let txt = d.statusMsg; let pm = document.getElementById("playModeBadge");
-        if(txt.includes("MANUAL | ")){ pm.style.display="inline-block"; pm.innerText="MANUAL"; pm.style.background="#f44336"; txt=txt.replace("MANUAL | ",""); }
-        else if(txt.includes("AUTO | ")){ pm.style.display="inline-block"; pm.innerText="AUTO"; pm.style.background="#4caf50"; txt=txt.replace("AUTO | ",""); } else { pm.style.display="none"; }
-        
+        let txt = d.statusMsg;
         let msgBox = document.getElementById("statusMsg");
-        if(txt.includes("WARNING")) { msgBox.style.color = "#ff1744"; msgBox.style.textShadow = "0 0 15px #ff1744"; } 
-        else { msgBox.style.color = "#00e676"; msgBox.style.textShadow = "none"; }
         msgBox.innerText = txt;
-        document.getElementById("trackName").innerText = (d.playing) ? txt : TRACKS[curTrack-1];
-        
-        let p = d.playing || false;
-        setDevState("bMan", p && txt.includes('Mangla')); setDevState("bArt", p && txt.includes('F1T9')); setDevState("bTodA", p && txt.includes('ARTI') && !txt.includes('F1T9'));
-        setDevState("bTodG", p && txt.includes('GODI')); setDevState("bD1", p && txt.includes('F3T1')); setDevState("bD2", p && txt.includes('F3T2'));
-        setDevState("bDir", p && !txt.includes('Mangla') && !txt.includes('ARTI') && !txt.includes('GODI') && !txt.includes('F3T'));
     }
-    if(d.volume !== undefined) document.getElementById("volNum").innerText=d.volume;
-    if(d.f4track) curTrack=d.f4track;
-    setDevState("btnRep", d.isRepeat); setDevState("btnShuf", d.isShuffle); setDevState("btnMute", d.isMute); 
-    document.getElementById("netBadge").className="badge"; document.getElementById("netBadge").innerText="ONLINE";
   });
 }
 
-function cmd(a,f,t) { 
-  if(!isConnected || isSending) return; isSending = true; 
-  if(a === 'repeat_toggle') document.getElementById('btnRep').classList.toggle('act');
-  if(a === 'shuffle_toggle') document.getElementById('btnShuf').classList.toggle('act');
-  if(a === 'toggle_mute') document.getElementById('btnMute').classList.toggle('act');
-  toast("Sent: "+a); 
-  cmdRef.set({action:a, folder:Number(f)||0, track:Number(t)||0, timestamp:Date.now()}); 
+// 🔴 MAIN DUAL-MODE COMMAND FUNCTION 🔴
+function cmd(actionName) { 
+  if(isSending) return; isSending = true; 
+  toast("Sending: " + actionName); 
+
+  if (navigator.onLine) {
+      // 1. ઇન્ટરનેટ ચાલુ હોય ત્યારે ફાયરબેઝમાં મોકલો (Online)
+      if(isConnected) {
+          cmdRef.set({action: actionName, timestamp: Date.now()}); 
+      }
+  } else {
+      // 2. ઓફલાઇન વાઇફાઇ હોય ત્યારે સીધું ESP32 ને કમાન્ડ આપો (Offline)
+      fetch("http://192.168.4.8/cmd?action=" + actionName, { mode: 'no-cors' })
+        .catch(e => console.log("Offline Request Failed"));
+  }
+  
   setTimeout(() => { isSending = false; }, 500); 
 }
 
-function setDevState(id, s) { let e=document.getElementById(id); if(e) e.classList.toggle("act", s); }
 function toast(m) { let t=document.getElementById("toast"); t.innerText=m; t.className="toast-show"; setTimeout(()=>t.className="",2500); }
 function switchView(v) { document.getElementById('view-dash').style.display = v==='dash'?'block':'none'; document.getElementById('view-sett').style.display = v==='sett'?'block':'none'; document.getElementById('tab-dash').classList.toggle('act',v==='dash'); document.getElementById('tab-sett').classList.toggle('act',v==='sett'); }
 function openSetTab(id, b) { document.querySelectorAll('.set-cont').forEach(e=>e.classList.remove('act')); document.querySelectorAll('.set-tb').forEach(e=>e.classList.remove('act')); document.getElementById('tc-'+id).classList.add('act'); b.classList.add('act'); }
 
-function toggleShuffle() { cmd('shuffle_toggle'); } function toggleRepeat() { cmd('repeat_toggle'); } function toggleMute() { cmd('toggle_mute'); } function nextTrack() { cmd('f4_next'); } function prevTrack() { cmd('f4_prev'); }
 function loadSettingsFromCloud() {
   setRef.on("value", snap => {
     if(!snap.exists()) return; const d=snap.val();
@@ -266,6 +260,7 @@ function loadSettingsFromCloud() {
   });
 }
 
+// 🔴 DUAL-MODE SYNC FUNCTION 🔴
 function syncSettingsToCloud() {
   const btn = document.querySelector('.sync-btn'); btn.innerText = "⏳ SAVING..."; btn.disabled = true; let p={}; 
   S_CONF.forEach(c => {
@@ -273,10 +268,29 @@ function syncSettingsToCloud() {
     p[c.v[0]] = get24(c.id+'_s'); p[c.v[1]] = parseInt(document.getElementById(c.id+'_s_m').value) || 0;
     if(c.type==='slot'){ p[c.v[2]] = get24(c.id+'_e'); p[c.v[3]] = parseInt(document.getElementById(c.id+'_e_m').value) || 0; }
   });
-  setRef.update(p).then(() => { cmd("sync_settings"); toast("💾 Saved! Synced to Module."); setTimeout(()=>{ btn.innerText = "💾 SAVE & SYNC TO MODULE"; btn.disabled = false; }, 1200); });
+  
+  if (navigator.onLine && isConnected) {
+      // 1. ઓનલાઈન સેવ
+      setRef.update(p).then(() => { 
+          toast("💾 Saved Online!"); 
+          resetBtn(btn); 
+      });
+  } else {
+      // 2. ઓફલાઇન સેવ
+      let jsonStr = encodeURIComponent(JSON.stringify(p));
+      fetch("http://192.168.4.8/sync?json=" + jsonStr, { mode: 'no-cors' })
+        .then(() => { toast("💾 Saved Offline!"); resetBtn(btn); })
+        .catch(() => { toast("💾 Offline Error!"); resetBtn(btn); });
+  }
 }
+
+function resetBtn(btn) {
+    setTimeout(()=>{ btn.innerText = "💾 SAVE & SYNC TO MODULE"; btn.disabled = false; }, 1200);
+}
+
 function get24(id) { let h=parseInt(document.getElementById(id+'_h').value); let ap=parseInt(document.getElementById(id+'_ap').value); return ap==1?(h==12?12:h+12):(h==12?0:h); }
 window.onload=()=>{ genSettings(); loadTrackList(); initFB(); updateLocalClock(); };
 </script>
 </body>
 </html>
+
