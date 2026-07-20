@@ -3,8 +3,8 @@
 <html lang="gu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<title>SARVOPARI DHAM NITYAM</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"> sarvopari
+<title>RAMESHWAR NITYAM</title>
 
 <link rel="manifest" href="manifest.json?v=3">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -75,7 +75,7 @@ body{font-family:'Segoe UI',sans-serif;background:#1e1e1e;color:#e0e0e0;margin:0
 .sw span:before{position:absolute;content:'';height:16px;width:16px;left:2px;bottom:2px;background:#ccc;transition:.3s;border-radius:50%}
 input:checked+span{background:#4caf50}
 input:checked+span:before{transform:translateX(16px);background:#fff}
-select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0}
+select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cursor:pointer;}
 .sync-btn{background:#4caf50;color:#fff;border:none;padding:15px;width:100%;border-radius:15px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:10px}
 </style>
 </head>
@@ -108,8 +108,8 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0}
     <div class="card">
       <div class="t-row"><button class="sq-btn" onclick="cmd('PREV')">⏮</button><div class="t-name" id="trackName">-</div><button class="sq-btn" onclick="cmd('NEXT')">⏭</button></div>
       <div class="cir-row">
-        <div id="bDir" class="cir-btn c-pur">📂<select class="f-sel" id="trackSel" onchange="selectTrack(this)"><option value="" disabled selected>.</option></select></div>
-        <button class="cir-btn c-org" id="btnShuf" onclick="cmd('FOLDER_PLAY')">🔀</button>
+        <div id="bDir" class="cir-btn c-pur" title="Select Track">📂<select class="f-sel" id="trackSel" onchange="selectTrack(this)"><option value="" disabled selected>Select Track</option></select></div>
+        <button class="cir-btn c-org" id="btnShuf" onclick="cmd('SHUFFLE')">🔀</button>
         <button class="cir-btn c-org" id="btnRep" onclick="cmd('REPEAT')">🔁</button>
         <button class="cir-btn c-pur" id="btnMute" onclick="cmd('STOP')">⏹</button>
       </div>
@@ -123,7 +123,7 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0}
         <button class="tile-btn t-blu" onclick="cmd('VOL_UP')"><span class="icon">➕</span>VOL +</button>
       </div>
     </div>
-    <div style="margin-top:25px;font-size:13px;color:#888;font-weight:bold;letter-spacing:1px;">SARVOPARI CLOUD EDITION SMARAN V2</div>
+    <div style="margin-top:25px;font-size:13px;color:#888;font-weight:bold;letter-spacing:1px;">RAMESHWAR CLOUD EDITION SMARAN V2</div>
   </div>
 
   <div id="view-sett">
@@ -140,7 +140,6 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0}
 <div id="toast"></div>
 
 <script>
-// તમારી જ જૂની કી અહી નાખેલી રાખો
 const FB_CONFIG = { 
   apiKey: "AIzaSyDCH0BCvuR1VafR1HaJ_JedVED1pP2ri-k", 
   authDomain: "rameshwar-smaran.firebaseapp.com", 
@@ -160,7 +159,7 @@ const S_CONF = [
   { t:'lk', id:'bl3', type:'slot', lbl:'L3: Everyday', c:'#d32f2f', v:['bl3SH','bl3SM','bl3EH','bl3EM','enBl3'] }
 ];
 
-let db, cmdRef, statusRef, setRef, curTrack=1, isConnected=false, lastStatusTime = 0, isSending = false;
+let db, cmdRef, statusRef, setRef, isConnected=false, lastStatusTime = 0, isSending = false;
 
 function genSettings() {
   let html = {'g':'', 'lk':''};
@@ -183,10 +182,21 @@ function timeIn(id) {
 
 function loadTrackList() {
   const sel = document.getElementById("trackSel");
-  TRACKS.forEach((t, i) => { let opt = document.createElement("option"); opt.value = i+1; opt.text = (i+1)+". "+t; sel.appendChild(opt); });
+  sel.innerHTML = '<option value="" disabled selected>Select Track</option>';
+  TRACKS.forEach((t, i) => { 
+    let opt = document.createElement("option"); 
+    opt.value = i+1; 
+    opt.text = (i+1 < 10 ? "0" : "") + (i+1) + ". " + t; 
+    sel.appendChild(opt); 
+  });
 }
 
-function selectTrack(sel) { if(sel.value) { cmd('FOLDER_PLAY'); sel.selectedIndex = 0; } }
+function selectTrack(sel) { 
+  if(sel.value) { 
+    cmd('FOLDER_PLAY', 4, parseInt(sel.value)); 
+    sel.selectedIndex = 0; 
+  } 
+}
 
 function initFB() {
   firebase.initializeApp(FB_CONFIG); db = firebase.database();
@@ -200,43 +210,51 @@ function updateLocalClock() {
   let m = now.getMinutes().toString().padStart(2, '0'); let s = now.getSeconds().toString().padStart(2, '0');
   document.getElementById("clock").innerText = `${days[now.getDay()]} ${h12}:${m}:${s}${ampm}`;
   
-  // Offline Check Logic
-  if (!navigator.onLine) {
-    document.getElementById("netBadge").className = "badge offline"; document.getElementById("netBadge").innerText = "OFFLINE/WIFI";
+  let nb = document.getElementById("netBadge");
+  if (Date.now() - lastStatusTime < 10000) {
+    nb.className = "badge"; nb.innerText = "ONLINE";
+  } else if (!navigator.onLine) {
+    nb.className = "badge offline"; nb.innerText = "OFFLINE";
   } else {
-    document.getElementById("netBadge").className = "badge"; document.getElementById("netBadge").innerText = "ONLINE";
+    nb.className = "badge offline"; nb.innerText = "WAITING";
   }
 }
 setInterval(updateLocalClock, 1000);
 
 function listenStatus() {
   statusRef.on("value", snap => {
-    if (!snap.exists()) return; const d = snap.val(); lastStatusTime = Date.now(); 
+    if (!snap.exists()) return; 
+    const d = snap.val(); 
+    lastStatusTime = Date.now(); 
+    
     if(d.statusMsg) {
-        let txt = d.statusMsg;
-        let msgBox = document.getElementById("statusMsg");
-        msgBox.innerText = txt;
+        document.getElementById("statusMsg").innerText = d.statusMsg;
+        document.getElementById("trackName").innerText = d.statusMsg;
     }
+    if(d.volume !== undefined) {
+        document.getElementById("volNum").innerText = d.volume;
+    }
+    
+    document.getElementById("btnRep").classList.toggle("act", d.isRepeat == 1);
+    document.getElementById("btnShuf").classList.toggle("act", d.isShuffle == 1);
   });
 }
 
 // 🔴 MAIN DUAL-MODE COMMAND FUNCTION 🔴
-function cmd(actionName) { 
+function cmd(actionName, folder = 0, track = 0) { 
   if(isSending) return; isSending = true; 
-  toast("Sending: " + actionName); 
+  toast("Sent: " + actionName); 
 
   if (navigator.onLine) {
-      // 1. ઇન્ટરનેટ ચાલુ હોય ત્યારે ફાયરબેઝમાં મોકલો (Online)
       if(isConnected) {
-          cmdRef.set({action: actionName, timestamp: Date.now()}); 
+          cmdRef.set({action: actionName, folder: folder, track: track, timestamp: Date.now()}); 
       }
   } else {
-      // 2. ઓફલાઇન વાઇફાઇ હોય ત્યારે સીધું ESP32 ને કમાન્ડ આપો (Offline)
-      fetch("http://192.168.4.8/cmd?action=" + actionName, { mode: 'no-cors' })
+      fetch(`http://192.168.4.8/cmd?action=${actionName}&folder=${folder}&track=${track}`, { mode: 'no-cors' })
         .catch(e => console.log("Offline Request Failed"));
   }
   
-  setTimeout(() => { isSending = false; }, 500); 
+  setTimeout(() => { isSending = false; }, 300); 
 }
 
 function toast(m) { let t=document.getElementById("toast"); t.innerText=m; t.className="toast-show"; setTimeout(()=>t.className="",2500); }
@@ -260,7 +278,6 @@ function loadSettingsFromCloud() {
   });
 }
 
-// 🔴 DUAL-MODE SYNC FUNCTION 🔴
 function syncSettingsToCloud() {
   const btn = document.querySelector('.sync-btn'); btn.innerText = "⏳ SAVING..."; btn.disabled = true; let p={}; 
   S_CONF.forEach(c => {
@@ -268,15 +285,12 @@ function syncSettingsToCloud() {
     p[c.v[0]] = get24(c.id+'_s'); p[c.v[1]] = parseInt(document.getElementById(c.id+'_s_m').value) || 0;
     if(c.type==='slot'){ p[c.v[2]] = get24(c.id+'_e'); p[c.v[3]] = parseInt(document.getElementById(c.id+'_e_m').value) || 0; }
   });
-  
-  if (navigator.onLine && isConnected) {
-      // 1. ઓનલાઈન સેવ
+if (navigator.onLine && isConnected) {
       setRef.update(p).then(() => { 
           toast("💾 Saved Online!"); 
           resetBtn(btn); 
       });
   } else {
-      // 2. ઓફલાઇન સેવ
       let jsonStr = encodeURIComponent(JSON.stringify(p));
       fetch("http://192.168.4.8/sync?json=" + jsonStr, { mode: 'no-cors' })
         .then(() => { toast("💾 Saved Offline!"); resetBtn(btn); })
