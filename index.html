@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<title>RAMESHWAR NITYAM</title>
+<title>SARVOPARI DHAM NITYAM</title>
 
 <link rel="manifest" href="manifest.json?v=3">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -97,34 +97,33 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
     </div>
     
     <div class="q-grid">
-      <!-- અહી જુઓ, મેં અક્ષરો કાઢીને સાચા નંબરો (જેમકે 3, 1, 4, વગેરે) લખી દીધા છે -->
-      <button id="bMan" class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
-      <button id="bArt" class="q-btn b-org" onclick="cmd(1)">Arti &amp; Jay</button>
-      <button id="bTodA" class="q-btn b-yel" onclick="cmd(4)">today's Arti</button>
-      <button id="bTodG" class="q-btn b-grn" onclick="cmd(5)">today's Godi</button>
-      <button id="bD1" class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
-      <button id="bD2" class="q-btn b-pur" onclick="cmd(7)">Dhun Evening</button>
+      <button id="bMan" class="q-btn b-blu" onclick="cmd('MANGLA')">Mangla</button>
+      <button id="bArt" class="q-btn b-org" onclick="cmd('ARTI_JAY')">Arti &amp; Jay</button>
+      <button id="bTodA" class="q-btn b-yel" onclick="cmd('TODAY_ARTI')">today's Arti</button>
+      <button id="bTodG" class="q-btn b-grn" onclick="cmd('TODAY_GODI')">today's Godi</button>
+      <button id="bD1" class="q-btn b-pur" onclick="cmd('DHUN_MORN')">Dhun Morning</button>
+      <button id="bD2" class="q-btn b-pur" onclick="cmd('DHUN_EVEN')">Dhun Evening</button>
     </div>
     
     <div class="card">
-      <div class="t-row"><button class="sq-btn" onclick="cmd(19)">⏮</button><div class="t-name" id="trackName">-</div><button class="sq-btn" onclick="cmd(18)">⏭</button></div>
+      <div class="t-row"><button class="sq-btn" onclick="cmd('PREV')">⏮</button><div class="t-name" id="trackName">-</div><button class="sq-btn" onclick="cmd('NEXT')">⏭</button></div>
       <div class="cir-row">
         <div id="bDir" class="cir-btn c-pur" title="Select Track">📂<select class="f-sel" id="trackSel" onchange="selectTrack(this)"><option value="" disabled selected>Select Track</option></select></div>
-        <button class="cir-btn c-org" id="btnShuf" onclick="cmd(21)">🔀</button>
-        <button class="cir-btn c-org" id="btnRep" onclick="cmd(20)">🔁</button>
-        <button class="cir-btn c-pur" id="btnMute" onclick="cmd(2)">⏹</button>
+        <button class="cir-btn c-org" id="btnShuf" onclick="cmd('SHUFFLE')">🔀</button>
+        <button class="cir-btn c-org" id="btnRep" onclick="cmd('REPEAT')">🔁</button>
+        <button class="cir-btn c-pur" id="btnMute" onclick="cmd('STOP')">⏹</button>
       </div>
     </div>
     
     <div class="card">
       <div class="c-row" style="margin-bottom:0">
-        <button class="tile-btn t-red" onclick="cmd(17)"><span class="icon">💫</span>RESTART</button>
-        <button class="tile-btn t-blu" onclick="cmd(10)"><span class="icon">➖</span>VOL -</button>
+        <button class="tile-btn t-red" onclick="cmd('RESTART')"><span class="icon">💫</span>RESTART</button>
+        <button class="tile-btn t-blu" onclick="cmd('VOL_DOWN')"><span class="icon">➖</span>VOL -</button>
         <div class="vol-box" id="volNum">--</div>
-        <button class="tile-btn t-blu" onclick="cmd(9)"><span class="icon">➕</span>VOL +</button>
+        <button class="tile-btn t-blu" onclick="cmd('VOL_UP')"><span class="icon">➕</span>VOL +</button>
       </div>
     </div>
-    <div style="margin-top:25px;font-size:13px;color:#888;font-weight:bold;letter-spacing:1px;">RAMESHWAR CLOUD EDITION SMARAN V2</div>
+    <div style="margin-top:25px;font-size:13px;color:#888;font-weight:bold;letter-spacing:1px;">SARVOPARI CLOUD EDITION SMARAN V2</div>
   </div>
 
   <div id="view-sett">
@@ -194,8 +193,7 @@ function loadTrackList() {
 
 function selectTrack(sel) { 
   if(sel.value) { 
-    // અહી પેલા 'FOLDER_PLAY' હતું, તેની જગ્યાએ આપણો પ્લે નંબર 1 મૂકી દીધો છે.
-    cmd(1, 4, parseInt(sel.value)); 
+    cmd('FOLDER_PLAY', 4, parseInt(sel.value)); 
     sel.selectedIndex = 0; 
   } 
 }
@@ -245,7 +243,7 @@ function listenStatus() {
 // 🔴 MAIN DUAL-MODE COMMAND FUNCTION 🔴
 function cmd(actionName, folder = 0, track = 0) { 
   if(isSending) return; isSending = true; 
-  toast("Command Sent: " + actionName); 
+  toast("Sent: " + actionName); 
 
   if (navigator.onLine) {
       if(isConnected) {
@@ -292,7 +290,7 @@ if (navigator.onLine && isConnected) {
           toast("💾 Saved Online!"); 
           resetBtn(btn); 
       });
-} else {
+  } else {
       let jsonStr = encodeURIComponent(JSON.stringify(p));
       fetch("http://192.168.4.8/sync?json=" + jsonStr, { mode: 'no-cors' })
         .then(() => { toast("💾 Saved Offline!"); resetBtn(btn); })
