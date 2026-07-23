@@ -36,7 +36,6 @@ body{font-family:'Segoe UI',sans-serif;background:#1e1e1e;color:#e0e0e0;margin:0
 .q-btn{border:none;border-radius:12px;padding:12px 5px;color:#fff;font-weight:700;width:100%;cursor:pointer;font-size:13px;background:linear-gradient(145deg,#242424,#1e1e1e);box-shadow:4px 4px 8px #131313,-4px -4px 8px #292929;transition:all 0.2s}
 .q-btn:active{box-shadow:inset 5px 5px 10px #0a0a0a,inset -5px -5px 10px #252525;background:#151515;color:#00e5ff}
 .b-blu{border-bottom:6px solid #1976d2}.b-org{border-bottom:6px solid #f57c00}.b-yel{border-bottom:6px solid #fbc02d;color:#fbc02d}.b-grn{border-bottom:6px solid #388e3c}.b-pur{border-bottom:6px solid #7b1fa2}
-.q-grid button.act{box-shadow:inset 6px 6px 12px #0a0a0a,inset -6px -6px 12px #252525;background:#151515;color:#00e676;border-bottom:6px solid #00e676;text-shadow:0 0 10px #00e676;}
 
 .t-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .sq-btn{width:45px;height:45px;border-radius:12px;background:linear-gradient(145deg,#242424,#1e1e1e);box-shadow:4px 4px 8px #131313,-4px -4px 8px #292929;color:#00e5ff;border:none;border-bottom:6px solid #00e5ff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer}
@@ -95,19 +94,13 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
       </div>
       <div id="statusMsg" class="status-msg">WAITING...</div>
     </div>
-
-<div class="q-grid">
-      <!-- Mangla: c==3 -->
+     
+    <div class="q-grid">
       <button id="bMan" class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
-      <!-- Arti & Jay: c==8 -->
       <button id="bArt" class="q-btn b-org" onclick="cmd(8)">Arti &amp; Jay</button>
-      <!-- today's Arti: c==4 -->
       <button id="bTodA" class="q-btn b-yel" onclick="cmd(4)">today's Arti</button>
-      <!-- today's Godi: c==5 -->
       <button id="bTodG" class="q-btn b-grn" onclick="cmd(5)">today's Godi</button>
-      <!-- Dhun Morning: c==6 -->
       <button id="bD1" class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
-      <!-- Dhun Evening: c==7 -->
       <button id="bD2" class="q-btn b-pur" onclick="cmd(7)">Dhun Evening</button>
       
       <!-- ચાલીસા 1 અને 2 માટે ઑનલાઇન અને ઑફલાઇન બંનેમાં ફોલ્ડર 5 અને ટ્રેક 1, 2 મોકલ્યા છે -->
@@ -119,35 +112,29 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
       <div class="t-row"><button class="sq-btn" onclick="cmd(19)">⏮</button><div class="t-name" id="trackName">-</div><button class="sq-btn" onclick="cmd(18)">⏭</button></div>
       <div class="cir-row">
         <div id="bDir" class="cir-btn c-pur" title="Select Track">📂<select class="f-sel" id="trackSel" onchange="selectTrack(this)"><option value="" disabled selected>Select Track</option></select></div>
-        <div class="cir-row">
-        <!-- Shuffle: c==21 -->
         <button class="cir-btn c-org" id="btnShuf" onclick="cmd(21)">🔀</button>
-        <!-- Repeat: c==20 -->
         <button class="cir-btn c-org" id="btnRep" onclick="cmd(20)">🔁</button>
-        <!-- Mute: c==22 -->
         <button class="cir-btn c-pur" id="btnMute" onclick="cmd(22)">🔊</button>
-        </div>
       </div>
+    </div>
     
     <div class="card">
       <div class="c-row" style="margin-bottom:0">
-        <!-- Restart: c==17 -->
         <button class="tile-btn t-red" onclick="cmd(17)"><span class="icon">💫</span>RESTART</button>
-        <!-- Vol -: c==10 -->
         <button class="tile-btn t-blu" onclick="cmd(10)"><span class="icon">➖</span>VOL -</button>
         <div class="vol-box" id="volNum">--</div>
-        <!-- Vol +: c==9 -->
         <button class="tile-btn t-blu" onclick="cmd(9)"><span class="icon">➕</span>VOL +</button>
       </div>
     </div>
     <div style="margin-top:25px;font-size:13px;color:#888;font-weight:bold;letter-spacing:1px;">RAMESHWAR CLOUD EDITION SMARAN V2</div>
+  </div>
 
   <div id="view-sett">
     <div id="set-title" style="font-size:16px; font-weight:bold; margin-bottom:15px; color:#ff9800;">⚙️ SETTINGS PANEL</div>
     
     <div class="set-tabs">
       <button class="set-tb act" onclick="openSetTab('g', this)">MAIN TIMER</button>
-      <button class='set-tb' onclick="openSetTab('lk', this)">LOCK SLOTS</button>
+      <button class="set-tb" onclick="openSetTab('lk', this)">LOCK SLOTS</button>
     </div>
     <div id="settings-container"></div>
     <button class="sync-btn" onclick="syncSettingsToCloud()">💾 SAVE & SYNC TO MODULE</button>
@@ -167,7 +154,6 @@ const FB_CONFIG = {
 };
 const TRACKS = ["ORDA-SARADHAR","ORA AAVO-GURUJI","ORDA-KUNDAL","MHATMAY CHINTA","SUKH CHINTA MANI","MURTI CHINTA MANI","BLANCK","TERE DWAR apadyo","NVAL SNEHI nathji","Shriji daya karo","Aekalda kem rahevay","Prabhu tam vina","Tum mere swami","Kyare have dekhu","Dukhi divas ne rat","Mara nath mara nath","Aakhadiyo aklay","Dhun_Amrut swami","DHUN VED mandir","JAMO JAMO mara","CHESHTA","RAM & CHESHTA","Track 23","Track 24","Track 25","Track 26","Track 27","Track 28","Track 29","Track 30","Track 31","Track 32","Track 33","Track 34","Track 35","Track 36","Track 37","Track 38","Track 39","Track 40"];
 
-// અહી સેટિંગ્સમાં હનુમાન ચાલીસા ના બંને ટાઈમર ઉમેર્યા છે
 const S_CONF = [
   { t:'g', id:'gd', type:'slot', lbl:'Auto Godi', c:'#388e3c', v:['gPH','gPM','gPEH','gPEM','enGD'] },
   { t:'g', id:'md', type:'slot', lbl:'Morning Dhun', c:'#fbc02d', v:['mDhSH','mDhSM','mDhEH','mDhEM','enMDh'] },
@@ -189,6 +175,7 @@ function genSettings() {
     html[c.t] += cd + `</div>`;
   });
   const cont = document.getElementById('settings-container');
+  cont.innerHTML = '';
   ['g','lk'].forEach(t => { 
     let div=document.createElement('div'); div.className=`set-cont ${t==='g'?'act':''}`; div.id='tc-'+t; div.innerHTML=html[t]; cont.appendChild(div); 
   });
@@ -304,12 +291,9 @@ function syncSettingsToCloud() {
     p[c.v[0]] = get24(c.id+'_s'); p[c.v[1]] = parseInt(document.getElementById(c.id+'_s_m').value) || 0;
     if(c.type==='slot'){ p[c.v[2]] = get24(c.id+'_e'); p[c.v[3]] = parseInt(document.getElementById(c.id+'_e_m').value) || 0; }
   });
-if (navigator.onLine && isConnected) {
-      setRef.update(p).then(() => { 
-          toast("💾 Saved Online!"); 
-          resetBtn(btn); 
-      });
-} else {
+  if (navigator.onLine && isConnected) {
+      setRef.update(p).then(() => { toast("💾 Saved Online!"); resetBtn(btn); });
+  } else {
       let jsonStr = encodeURIComponent(JSON.stringify(p));
       fetch("http://192.168.4.8/sync?json=" + jsonStr, { mode: 'no-cors' })
         .then(() => { toast("💾 Saved Offline!"); resetBtn(btn); })
@@ -326,34 +310,3 @@ window.onload=()=>{ genSettings(); loadTrackList(); initFB(); updateLocalClock()
 </script>
 </body>
 </html>
-
-function syncSettingsToCloud() {
-  const btn = document.querySelector('.sync-btn'); btn.innerText = "⏳ SAVING..."; btn.disabled = true; let p={}; 
-  S_CONF.forEach(c => {
-    let el = document.getElementById(c.id+'_en'); p[c.v[c.v.length-1]] = el && el.checked ? 1 : 0;
-    p[c.v[0]] = get24(c.id+'_s'); p[c.v[1]] = parseInt(document.getElementById(c.id+'_s_m').value) || 0;
-    if(c.type==='slot'){ p[c.v[2]] = get24(c.id+'_e'); p[c.v[3]] = parseInt(document.getElementById(c.id+'_e_m').value) || 0; }
-  });
-if (navigator.onLine && isConnected) {
-      setRef.update(p).then(() => { 
-          toast("💾 Saved Online!"); 
-          resetBtn(btn); 
-      });
-} else {
-      let jsonStr = encodeURIComponent(JSON.stringify(p));
-      fetch("http://192.168.4.8/sync?json=" + jsonStr, { mode: 'no-cors' })
-        .then(() => { toast("💾 Saved Offline!"); resetBtn(btn); })
-        .catch(() => { toast("💾 Offline Error!"); resetBtn(btn); });
-  }
-}
-
-function resetBtn(btn) {
-    setTimeout(()=>{ btn.innerText = "💾 SAVE & SYNC TO MODULE"; btn.disabled = false; }, 1200);
-}
-
-function get24(id) { let h=parseInt(document.getElementById(id+'_h').value); let ap=parseInt(document.getElementById(id+'_ap').value); return ap==1?(h==12?12:h+12):(h==12?0:h); }
-window.onload=()=>{ genSettings(); loadTrackList(); initFB(); updateLocalClock(); };
-</script>
-</body>
-</html>
-
