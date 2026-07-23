@@ -24,7 +24,7 @@ body{font-family:'Segoe UI',sans-serif;background:#1e1e1e;color:#e0e0e0;margin:0
 .stat-hdr{color:#fff;font-weight:900;font-size:18px;margin-bottom:8px;text-shadow:0 0 10px #ff007f,0 0 20px #ff007f;letter-spacing:1px}
 .stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;margin-top:5px;}
 
-.time-text { font-size: 24px; font-weight: bold; white-space: nowrap; margin-top: 30px; background: linear-gradient(to right, #B38728 0%, #FBF5B7 25%, #B38728 50%, #FBF5B7 75%, #B38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6)); }
+.time-text { font-size: 29px; font-weight: bold; white-space: nowrap; margin-top: 30px; background: linear-gradient(to right, #B38728 0%, #FBF5B7 25%, #B38728 50%, #FBF5B7 75%, #B38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6)); }
 
 .center-murti{width:100px;height:100px;border-radius:50%;border:3px solid #FFD700;box-shadow:0 0 12px rgba(255,215,0,0.8),inset 0 0 8px rgba(255,215,0,0.5);object-fit:cover;margin:0 5px;}
 .badge{font-size:10px;padding:3px 8px;border-radius:5px;font-weight:bold;background:linear-gradient(145deg,#4caf50,#388e3c);color:#fff;text-align:center;box-shadow:2px 2px 4px #131313}
@@ -95,7 +95,7 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
       </div>
       <div id="statusMsg" class="status-msg">WAITING...</div>
     </div>
-    
+     
     <div class="q-grid">
       <!-- અહી જુઓ, મેં અક્ષરો કાઢીને સાચા નંબરો (જેમકે 3, 1, 4, વગેરે) લખી દીધા છે -->
       <button id="bMan" class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
@@ -104,6 +104,10 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
       <button id="bTodG" class="q-btn b-grn" onclick="cmd(5)">today's Godi</button>
       <button id="bD1" class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
       <button id="bD2" class="q-btn b-pur" onclick="cmd(7)">Dhun Evening</button>
+      
+      <!-- હનુમાન ચાલીસાના નવા ઉમેરેલા બટનો -->
+      <button id="bHc1" class="q-btn b-org" onclick="cmd(11)">H. Chalisa 1</button>
+      <button id="bHc2" class="q-btn b-org" onclick="cmd(12)">H. Chalisa 2</button>
     </div>
     
     <div class="card">
@@ -112,7 +116,11 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
         <div id="bDir" class="cir-btn c-pur" title="Select Track">📂<select class="f-sel" id="trackSel" onchange="selectTrack(this)"><option value="" disabled selected>Select Track</option></select></div>
         <button class="cir-btn c-org" id="btnShuf" onclick="cmd(21)">🔀</button>
         <button class="cir-btn c-org" id="btnRep" onclick="cmd(20)">🔁</button>
-        <button class="cir-btn c-pur" id="btnMute" onclick="cmd(2)">⏹</button>
+        
+        <!-- નવું ઉમેરેલું પ્લેયર મ્યુટ / પ્લે-પોઝ બટન (સ્ટોપ બટન ની પહેલા) -->
+        <button class="cir-btn c-teal" id="btnPlayMute" onclick="cmd(8)">⏯</button>
+        
+        <button class="cir-btn c-pur" id="btnStop" onclick="cmd(2)">⏹</button>
       </div>
     </div>
     
@@ -151,10 +159,14 @@ const FB_CONFIG = {
   appId: "1:223803905988:web:aa0138f5050b91e9e43691" 
 };
 const TRACKS = ["ORDA-SARADHAR","ORA AAVO-GURUJI","ORDA-KUNDAL","MHATMAY CHINTA","SUKH CHINTA MANI","MURTI CHINTA MANI","BLANCK","TERE DWAR apadyo","NVAL SNEHI nathji","Shriji daya karo","Aekalda kem rahevay","Prabhu tam vina","Tum mere swami","Kyare have dekhu","Dukhi divas ne rat","Mara nath mara nath","Aakhadiyo aklay","Dhun_Amrut swami","DHUN VED mandir","JAMO JAMO mara","CHESHTA","RAM & CHESHTA","Track 23","Track 24","Track 25","Track 26","Track 27","Track 28","Track 29","Track 30","Track 31","Track 32","Track 33","Track 34","Track 35","Track 36","Track 37","Track 38","Track 39","Track 40"];
+
+// અહી સેટિંગ્સમાં હનુમાન ચાલીસા ના બંને ટાઈમર ઉમેર્યા છે
 const S_CONF = [
   { t:'g', id:'gd', type:'slot', lbl:'Auto Godi', c:'#388e3c', v:['gPH','gPM','gPEH','gPEM','enGD'] },
   { t:'g', id:'md', type:'slot', lbl:'Morning Dhun', c:'#fbc02d', v:['mDhSH','mDhSM','mDhEH','mDhEM','enMDh'] },
   { t:'g', id:'ed', type:'slot', lbl:'Evening Dhun', c:'#7b1fa2', v:['eDhSH','eDhSM','eDhEH','eDhEM','enEDh'] },
+  { t:'g', id:'hc1', type:'slot', lbl:'H. Chalisa 1', c:'#ff5722', v:['hc1SH','hc1SM','hc1EH','hc1EM','enHc1'] },
+  { t:'g', id:'hc2', type:'slot', lbl:'H. Chalisa 2', c:'#ff5722', v:['hc2SH','hc2SM','hc2EH','hc2EM','enHc2'] },
   { t:'lk', id:'bl1', type:'slot', lbl:'L1: Everyday', c:'#d32f2f', v:['bl1SH','bl1SM','bl1EH','bl1EM','enBl1'] },
   { t:'lk', id:'bl2', type:'slot', lbl:'L2: Everyday', c:'#d32f2f', v:['bl2SH','bl2SM','bl2EH','bl2EM','enBl2'] },
   { t:'lk', id:'bl3', type:'slot', lbl:'L3: Everyday', c:'#d32f2f', v:['bl3SH','bl3SM','bl3EH','bl3EM','enBl3'] }
@@ -194,7 +206,6 @@ function loadTrackList() {
 
 function selectTrack(sel) { 
   if(sel.value) { 
-    // અહી પેલા 'FOLDER_PLAY' હતું, તેની જગ્યાએ આપણો પ્લે નંબર 1 મૂકી દીધો છે.
     cmd(1, 4, parseInt(sel.value)); 
     sel.selectedIndex = 0; 
   } 
@@ -242,7 +253,6 @@ function listenStatus() {
   });
 }
 
-// 🔴 MAIN DUAL-MODE COMMAND FUNCTION 🔴
 function cmd(actionName, folder = 0, track = 0) { 
   if(isSending) return; isSending = true; 
   toast("Command Sent: " + actionName); 
@@ -279,7 +289,6 @@ function loadSettingsFromCloud() {
     });
   });
 }
-
 function syncSettingsToCloud() {
   const btn = document.querySelector('.sync-btn'); btn.innerText = "⏳ SAVING..."; btn.disabled = true; let p={}; 
   S_CONF.forEach(c => {
