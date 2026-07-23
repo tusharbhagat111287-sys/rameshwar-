@@ -96,44 +96,52 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
       <div id="statusMsg" class="status-msg">WAITING...</div>
     </div>
      
-    <div class="q-grid">
-      <!-- અહી જુઓ, મેં અક્ષરો કાઢીને સાચા નંબરો (જેમકે 3, 1, 4, વગેરે) લખી દીધા છે -->
+<div class="q-grid">
+      <!-- Mangla: c==3 -->
       <button id="bMan" class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
-      <button id="bArt" class="q-btn b-org" onclick="cmd(1)">Arti &amp; Jay</button>
+      <!-- Arti & Jay: c==8 -->
+      <button id="bArt" class="q-btn b-org" onclick="cmd(8)">Arti &amp; Jay</button>
+      <!-- today's Arti: c==4 -->
       <button id="bTodA" class="q-btn b-yel" onclick="cmd(4)">today's Arti</button>
+      <!-- today's Godi: c==5 -->
       <button id="bTodG" class="q-btn b-grn" onclick="cmd(5)">today's Godi</button>
+      <!-- Dhun Morning: c==6 -->
       <button id="bD1" class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
+      <!-- Dhun Evening: c==7 -->
       <button id="bD2" class="q-btn b-pur" onclick="cmd(7)">Dhun Evening</button>
       
-      <!-- હનુમાન ચાલીસાના નવા ઉમેરેલા બટનો -->
-      <button id="bHc1" class="q-btn b-org" onclick="cmd(11)">H. Chalisa 1</button>
-      <button id="bHc2" class="q-btn b-org" onclick="cmd(12)">H. Chalisa 2</button>
+      <!-- હનુમાન ચાલીસા 1 અને 2 (C++ કોડ મુજબ c==12 અને c==13 છે) -->
+      <button id="bHc1" class="q-btn b-org" onclick="cmd(12)">H. Chalisa 1</button>
+      <button id="bHc2" class="q-btn b-org" onclick="cmd(13)">H. Chalisa 2</button>
     </div>
     
     <div class="card">
       <div class="t-row"><button class="sq-btn" onclick="cmd(19)">⏮</button><div class="t-name" id="trackName">-</div><button class="sq-btn" onclick="cmd(18)">⏭</button></div>
       <div class="cir-row">
         <div id="bDir" class="cir-btn c-pur" title="Select Track">📂<select class="f-sel" id="trackSel" onchange="selectTrack(this)"><option value="" disabled selected>Select Track</option></select></div>
+        <div class="cir-row">
+        <!-- Shuffle: c==21 -->
         <button class="cir-btn c-org" id="btnShuf" onclick="cmd(21)">🔀</button>
+        <!-- Repeat: c==20 -->
         <button class="cir-btn c-org" id="btnRep" onclick="cmd(20)">🔁</button>
-        
-        <!-- નવું ઉમેરેલું પ્લેયર મ્યુટ / પ્લે-પોઝ બટન (સ્ટોપ બટન ની પહેલા) -->
-        <button class="cir-btn c-teal" id="btnPlayMute" onclick="cmd(8)">⏯</button>
-        
-        <button class="cir-btn c-pur" id="btnStop" onclick="cmd(2)">⏹</button>
-      </div>
+        <!-- Mute: c==22 -->
+        <button class="cir-btn c-pur" id="btnMute" onclick="cmd(22)">🔊</button>
+        </div>
+      </div> <!-- અહિયાં એક div ટેગ ખૂટતો હતો જે મેં ઉમેરી દીધો છે -->
     </div>
     
     <div class="card">
       <div class="c-row" style="margin-bottom:0">
+        <!-- Restart: c==17 -->
         <button class="tile-btn t-red" onclick="cmd(17)"><span class="icon">💫</span>RESTART</button>
+        <!-- Vol -: c==10 -->
         <button class="tile-btn t-blu" onclick="cmd(10)"><span class="icon">➖</span>VOL -</button>
         <div class="vol-box" id="volNum">--</div>
+        <!-- Vol +: c==9 -->
         <button class="tile-btn t-blu" onclick="cmd(9)"><span class="icon">➕</span>VOL +</button>
       </div>
     </div>
     <div style="margin-top:25px;font-size:13px;color:#888;font-weight:bold;letter-spacing:1px;">RAMESHWAR CLOUD EDITION SMARAN V2</div>
-  </div>
 
   <div id="view-sett">
     <div id="set-title" style="font-size:16px; font-weight:bold; margin-bottom:15px; color:#ff9800;">⚙️ SETTINGS PANEL</div>
@@ -289,6 +297,37 @@ function loadSettingsFromCloud() {
     });
   });
 }
+
+function syncSettingsToCloud() {
+  const btn = document.querySelector('.sync-btn'); btn.innerText = "⏳ SAVING..."; btn.disabled = true; let p={}; 
+  S_CONF.forEach(c => {
+    let el = document.getElementById(c.id+'_en'); p[c.v[c.v.length-1]] = el && el.checked ? 1 : 0;
+    p[c.v[0]] = get24(c.id+'_s'); p[c.v[1]] = parseInt(document.getElementById(c.id+'_s_m').value) || 0;
+    if(c.type==='slot'){ p[c.v[2]] = get24(c.id+'_e'); p[c.v[3]] = parseInt(document.getElementById(c.id+'_e_m').value) || 0; }
+  });
+if (navigator.onLine && isConnected) {
+      setRef.update(p).then(() => { 
+          toast("💾 Saved Online!"); 
+          resetBtn(btn); 
+      });
+} else {
+      let jsonStr = encodeURIComponent(JSON.stringify(p));
+      fetch("http://192.168.4.8/sync?json=" + jsonStr, { mode: 'no-cors' })
+        .then(() => { toast("💾 Saved Offline!"); resetBtn(btn); })
+        .catch(() => { toast("💾 Offline Error!"); resetBtn(btn); });
+  }
+}
+
+function resetBtn(btn) {
+    setTimeout(()=>{ btn.innerText = "💾 SAVE & SYNC TO MODULE"; btn.disabled = false; }, 1200);
+}
+
+function get24(id) { let h=parseInt(document.getElementById(id+'_h').value); let ap=parseInt(document.getElementById(id+'_ap').value); return ap==1?(h==12?12:h+12):(h==12?0:h); }
+window.onload=()=>{ genSettings(); loadTrackList(); initFB(); updateLocalClock(); };
+</script>
+</body>
+</html>
+
 function syncSettingsToCloud() {
   const btn = document.querySelector('.sync-btn'); btn.innerText = "⏳ SAVING..."; btn.disabled = true; let p={}; 
   S_CONF.forEach(c => {
