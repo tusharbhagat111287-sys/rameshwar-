@@ -90,7 +90,6 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
       <div class="stat-hdr">🔴🙏 RAMESHWAR 🙏🔴</div>
       <div class="stat-row">
         <div id="clock" class="time-text">--:--</div>
-        <!-- અહીંયા ઓફલાઇન ઇમેજ નો પાથ સેટ કર્યો છે -->
         <img src="./icon-192.png" class="center-murti" alt="Bhagwan Darshan">
         <div class="badge-col">
           <span id="netBadge" class="badge offline">WAIT</span>
@@ -276,51 +275,16 @@ function loadSettingsFromCloud() {
       let en = document.getElementById(c.id+'_en'); if(en) en.checked = (d[c.v[c.v.length-1]] == 1);
       if(d[c.v[0]]!==undefined) { 
         let h12 = d[c.v[0]]%12; if(h12==0) h12=12; 
-        document.getElementById(c.id+'_s_h').value=h12; document.getElementById(c.id+'_s_m').value=parseInt(d[c.v[1]])<10?'0'+d[c.v[1]]:d[c.v[1]]; document.getElementById(c.id+'_s_ap').value=(d[c.v[0]]>=12?1:0);
-      }
-      if(c.type==='slot' && d[c.v[2]]!==undefined) { 
-        let h12 = d[c.v[2]]%12; if(h12==0) h12=12;
-        document.getElementById(c.id+'_e_h').value=h12; document.getElementById(c.id+'_e_m').value=parseInt(d[c.v[3]])<10?'0'+d[c.v[3]]:d[c.v[3]]; document.getElementById(c.id+'_e_ap').value=(d[c.v[2]]>=12?1:0);
+        document.getElementById(c.id+'_s_h').value=h12; document.getElementById(c.id+'_s_m').value=parseInt(d[c.v[1]]);
       }
     });
   });
 }
 
-function syncSettingsToCloud() {
-  const btn = document.querySelector('.sync-btn'); btn.innerText = "⏳ SAVING..."; btn.disabled = true; let p={}; 
-  S_CONF.forEach(c => {
-    let el = document.getElementById(c.id+'_en'); p[c.v[c.v.length-1]] = el && el.checked ? 1 : 0;
-    p[c.v[0]] = get24(c.id+'_s'); p[c.v[1]] = parseInt(document.getElementById(c.id+'_s_m').value) || 0;
-    if(c.type==='slot'){ p[c.v[2]] = get24(c.id+'_e'); p[c.v[3]] = parseInt(document.getElementById(c.id+'_e_m').value) || 0; }
-  });
-  if (navigator.onLine && isConnected) {
-      setRef.update(p).then(() => { toast("💾 Saved Online!"); resetBtn(btn); });
-  } else {
-      let jsonStr = encodeURIComponent(JSON.stringify(p));
-      fetch("http://192.168.4.8/sync?json=" + jsonStr, { mode: 'no-cors' })
-        .then(() => { toast("💾 Saved Offline!"); resetBtn(btn); })
-        .catch(() => { toast("💾 Offline Error!"); resetBtn(btn); });
-  }
-}
-
-function resetBtn(btn) {
-    setTimeout(()=>{ btn.innerText = "💾 SAVE & SYNC TO MODULE"; btn.disabled = false; }, 1200);
-}
-
-function get24(id) { let h=parseInt(document.getElementById(id+'_h').value); let ap=parseInt(document.getElementById(id+'_ap').value); return ap==1?(h==12?12:h+12):(h==12?0:h); }
-
-// આ કોડ થી Service Worker (ઓફલાઇન સિસ્ટમ) ચાલુ થશે
-window.onload=()=>{ 
-  genSettings(); 
-  loadTrackList(); 
-  initFB(); 
-  updateLocalClock(); 
-  
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
-      .then(reg => console.log('SW Registered!'))
-      .catch(err => console.log('SW Reg Error:', err));
-  }
+window.onload = () => {
+    genSettings();
+    loadTrackList();
+    initFB();
 };
 </script>
 </body>
