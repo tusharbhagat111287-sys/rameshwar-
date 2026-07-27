@@ -22,25 +22,25 @@ body{font-family:'Segoe UI',sans-serif;background:#121212;color:#e0e0e0;margin:0
 .nt-btn{padding:8px 30px;border-radius:20px;font-weight:bold;font-size:13px;background:#252525;color:#888;border:none;cursor:pointer;transition:all 0.2s}
 .nt-btn.act{color:#00e5ff;background:#1a1a1a;box-shadow:inset 0px 0px 8px rgba(0, 229, 255, 0.15); border:1px solid #00e5ff;}
 
-/* Header Card: Adjusted for Perfect Alignment */
+/* Header Card: Perfect Centered Alignment */
 .header-card{margin-bottom:12px; padding:5px 10px;}
 .stat-hdr{color:#fff;font-weight:900;font-size:18px;margin-bottom:15px;text-shadow:0 0 10px #ff007f,0 0 20px #ff007f;letter-spacing:1px}
-.clock-row{display:flex;justify-content:space-between;align-items:center;padding:0 15px;margin-bottom:15px;}
-.time-text{font-size:28px;font-weight:900;background:linear-gradient(to right, #D4AF37 0%, #FFF8DC 50%, #D4AF37 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent; text-align:left; flex:1;}
-.murti-box{position:relative;width:90px;height:90px; flex-shrink:0;}
-.center-murti{width:90px;height:90px;border-radius:50%;border:2px solid #FFD700;box-shadow:0 0 15px rgba(255,215,0,0.6);object-fit:cover;}
-.badge{position:absolute;right:-5px;top:35px;font-size:10px;padding:4px 8px;border-radius:6px;font-weight:bold;background:#4caf50;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.5);}
+.clock-row{display:flex;justify-content:space-between;align-items:center;padding:0 5px;margin-bottom:15px;}
+.time-text{font-size:26px;font-weight:900;background:linear-gradient(to right, #D4AF37 0%, #FFF8DC 50%, #D4AF37 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent; text-align:left; flex:1;}
+.murti-box{position:relative;width:85px;height:85px; flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+.center-murti{width:85px;height:85px;border-radius:50%;border:2px solid #FFD700;box-shadow:0 0 15px rgba(255,215,0,0.6);object-fit:cover;}
+.badge{position:absolute;right:-5px;top:30px;font-size:9px;padding:3px 6px;border-radius:6px;font-weight:bold;background:#4caf50;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.5);}
 .badge.offline{background:#f44336}
 
 .status-pill{background:#111;color:#00e676;border-radius:8px;padding:10px;font-size:13px;font-weight:bold;border:1px solid #222; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 
-/* Grid Buttons */
+/* Grid Buttons with Bottom Border Active Style */
 .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.q-btn{border:none;border-radius:8px;padding:16px 5px;color:#fff;font-weight:bold;width:100%;cursor:pointer;font-size:14px;background:#222;transition:all 0.2s;}
+.q-btn{border:none;border-radius:8px;padding:16px 5px;color:#fff;font-weight:bold;width:100%;cursor:pointer;font-size:14px;background:#222;transition:all 0.1s;}
 .b-blu{border-bottom:4px solid #2196f3}.b-org{border-bottom:4px solid #ff9800}.b-yel{border-bottom:4px solid #fbc02d;color:#fbc02d}.b-pur{border-bottom:4px solid #9c27b0}
 
-/* Active Green Class */
-.btn-active { background: #4caf50 !important; color: #fff !important; border-bottom-color: #2e7d32 !important; box-shadow: 0 0 10px rgba(76, 175, 80, 0.4); }
+/* Active Bottom Border Turns Green, rest of button keeps original background */
+.q-btn.btn-active { border-bottom-color: #4caf50 !important; color: #4caf50 !important; box-shadow: inset 0 -3px 0 #4caf50; }
 
 /* Middle Player Section */
 .card{background:#1a1a1a;border-radius:15px;padding:15px;margin-bottom:12px;border:1px solid #2a2a2a;}
@@ -49,10 +49,11 @@ body{font-family:'Segoe UI',sans-serif;background:#121212;color:#e0e0e0;margin:0
 .t-name{flex:1;background:#111;height:48px;margin:0 12px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#00e676;font-weight:bold;overflow:hidden;white-space:nowrap;border:1px solid #222;padding:0 10px;}
 
 .cir-row{display:flex;justify-content:space-between;align-items:center;padding:0 5px;}
-.cir-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;border:none;cursor:pointer;background:#222;transition:all 0.2s}
+.cir-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;border:none;cursor:pointer;background:#222;transition:all 0.1s}
 .c-pur{color:#9c27b0;border-bottom:4px solid #9c27b0} 
 .c-org{color:#ff9800;border-bottom:4px solid #ff9800} 
 .c-red{color:#f44336;border-bottom:4px solid #f44336; font-size:26px;} 
+.cir-btn.btn-active { border-bottom-color: #4caf50 !important; color: #4caf50 !important; }
 
 /* Bottom Volume Row */
 .c-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px; gap:12px;}
@@ -61,17 +62,18 @@ body{font-family:'Segoe UI',sans-serif;background:#121212;color:#e0e0e0;margin:0
 .vol-box{width:65px;height:48px;background:#111;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:bold;color:#fbc02d;border:1px solid #333;}
 .footer-text{font-size:11px;color:#666;font-weight:bold;letter-spacing:1px;text-transform:uppercase;}
 
-/* Folder Drawer Popup */
-#f-drawer{position:fixed;bottom:-100%;left:0;width:100%;background:#1a1a1a;border-top:2px solid #333;border-radius:20px 20px 0 0;padding:20px;transition:0.4s ease;z-index:999;box-shadow:0 -5px 20px rgba(0,0,0,0.8);}
+/* 40 Tracks Folder Drawer */
+#f-drawer{position:fixed;bottom:-100%;left:0;width:100%;height:75vh;background:#1a1a1a;border-top:2px solid #333;border-radius:20px 20px 0 0;padding:20px;transition:0.3s ease;z-index:999;box-shadow:0 -5px 20px rgba(0,0,0,0.8);display:flex;flex-direction:column;}
 #f-drawer.open{bottom:0;}
-.d-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;color:#00bcd4;font-weight:bold;}
+.d-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;color:#00bcd4;font-weight:bold;flex-shrink:0;}
 .d-close{background:transparent;border:none;color:#f44336;font-size:20px;cursor:pointer;font-weight:bold;}
-.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.f-btn{background:#222;border:none;padding:12px;color:#fff;border-radius:8px;font-weight:bold;border-bottom:3px solid #ff9800;}
+.f-grid{display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;overflow-y:auto;padding-right:5px;flex-grow:1;}
+.f-btn{background:#222;border:none;padding:12px 5px;color:#fff;border-radius:8px;font-weight:bold;border-bottom:3px solid #ff9800;cursor:pointer;font-size:13px;}
+.f-btn:active{background:#333;transform:scale(0.95);}
 
 /* SETTINGS PANEL */
 #view-sett{display:none;}
-.set-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:20px;background:#111;border-radius:30px;padding:5px;width:fit-content;margin:left:auto;margin-right:auto;}
+.set-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:20px;background:#111;border-radius:30px;padding:5px;width:fit-content;margin-left:auto;margin-right:auto;}
 .set-tb{background:transparent;border:none;color:#888;padding:10px 20px;border-radius:25px;font-size:13px;font-weight:bold;cursor:pointer;}
 .set-tb.act{background:#ff9800;color:#000;}
 .set-cont{display:none; text-align:left;}
@@ -89,7 +91,6 @@ input:checked+span{background:#4caf50}
 input:checked+span:before{transform:translateX(18px);}
 .sync-btn{background:#4caf50;color:#fff;border:none;padding:16px;width:100%;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:10px;}
 
-/* TOAST */
 #toast{visibility:hidden;background:#fff;color:#000;padding:12px 25px;position:fixed;bottom:100px;left:50%;transform:translateX(-50%);border-radius:30px;z-index:1000;font-weight:bold;font-size:13px;}
 .toast-show{visibility:visible!important;animation:fade 1.5s}
 @keyframes fade{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
@@ -104,22 +105,19 @@ input:checked+span:before{transform:translateX(18px);}
 
 <div class="container">
   
-  <!-- ================= CONTROL VIEW ================= -->
   <div id="view-dash">
     <div class="header-card">
       <div class="stat-hdr">🔴🙏 RAMESHWAR 🙏🔴</div>
       <div class="clock-row">
         <div id="clock" class="time-text">--:--</div>
         <div class="murti-box">
-          <!-- મૂર્તિ માટે તમારી ઈમેજ લિંક -->
-          <img src="1001181689.jpg" onerror="this.src='./icon-192.png'" class="center-murti" alt="Bhagwan">
+          <img src="1001181810.jpg" onerror="this.src='./icon-192.png'" class="center-murti" alt="Bhagwan">
           <span id="netBadge" class="badge">CLOUD</span>
         </div>
       </div>
       <div class="status-pill" id="statusPill">WAITING FOR ESP...</div>
     </div>
 
-    <!-- મેઈન બટન્સ - this પાસ કર્યું છે જેથી ગ્રીન થઈ શકે -->
     <div class="q-grid">
       <button class="q-btn b-blu" onclick="playCmd(3, this)">Mangla</button>
       <button class="q-btn b-org" onclick="playCmd(8, this)">Arti & Jay</button>
@@ -140,8 +138,8 @@ input:checked+span:before{transform:translateX(18px);}
       
       <div class="cir-row">
         <button class="cir-btn c-pur" onclick="openDrawer()">📂</button>
-        <button class="cir-btn c-org" id="btnShuf" onclick="toggleState('shuf', this)">🔀</button>
-        <button class="cir-btn c-org" id="btnRep" onclick="toggleState('rep', this)">🔁</button>
+        <button class="cir-btn c-org" id="btnShuf" onclick="toggleState(21, this)">🔀</button>
+        <button class="cir-btn c-org" id="btnRep" onclick="toggleState(20, this)">🔁</button>
         <button class="cir-btn c-pur" onclick="sendDirectCmd(22)">🔊</button>
         <button class="cir-btn c-red" onclick="stopPlayer()">⏹</button>
       </div>
@@ -157,21 +155,15 @@ input:checked+span:before{transform:translateX(18px);}
     <div class="footer-text">RAMESHWAR MAKKHAN EDITION PRO (SMARAN V2)</div>
   </div>
 
-  <!-- ================= FOLDER DRAWER ================= -->
+  <!-- 40 Tracks Folder Drawer -->
   <div id="f-drawer">
     <div class="d-head">
-      <span>📂 SELECT FOLDER</span>
+      <span>📂 SELECT TRACK (1 - 40)</span>
       <button class="d-close" onclick="closeDrawer()">✖</button>
     </div>
-    <div class="f-grid">
-      <button class="f-btn" onclick="playFolder(1)">Folder 1</button>
-      <button class="f-btn" onclick="playFolder(2)">Folder 2</button>
-      <button class="f-btn" onclick="playFolder(3)">Folder 3</button>
-      <button class="f-btn" onclick="playFolder(4)">Folder 4</button>
-    </div>
+    <div class="f-grid" id="trackGrid"></div>
   </div>
 
-  <!-- ================= SETTINGS VIEW ================= -->
   <div id="view-sett">
     <div class="set-tabs">
       <button class="set-tb act" onclick="openSetTab('main', this)">MAIN TIMER</button>
@@ -185,8 +177,6 @@ input:checked+span:before{transform:translateX(18px);}
 </div>
 
 <div id="toast">Command Sent!</div>
-
-<!-- ================= HIDDEN IMAGE TRICK FOR 0.0 DELAY ================= -->
 <img id="pingImg" style="display:none;" />
 
 <script>
@@ -216,57 +206,50 @@ const SLOTS = [
 
 let db, cmdRef, statusRef, setRef, isConnected = false;
 
-// 0.0 Delay Command Function Using Hidden Image Ping & Firebase
 function sendDirectCmd(actionID, folder = 0, track = 0) { 
   let ts = Date.now();
   showToast("Command Sent!");
-
-  // 1. Firebase Update (Cloud / Remote)
   if(isConnected) {
       cmdRef.set({ action: actionID, folder: folder, track: track, timestamp: ts });
   }
-
-  // 2. 0.0 Delay Local Ping (Bypasses CORS/HTTPS blocking)
   let img = document.getElementById("pingImg");
   img.src = `http://192.168.4.8/cmd?action=${actionID}&folder=${folder}&track=${track}&t=${ts}`;
 }
 
-// Active Button Logic (Green Color)
 function playCmd(actionID, btnEl) {
-    // પહેલા બધા બટન માંથી લીલો કલર કાઢો
     document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('btn-active'));
-    // જે બટન દબાવ્યું તેને લીલું કરો
     if(btnEl) btnEl.classList.add('btn-active');
-    
     sendDirectCmd(actionID);
 }
 
-// Stop Logic
 function stopPlayer() {
-    // સ્ટોપ દબાવતા બધા લીલા બટન નોર્મલ કરી દો
     document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('btn-active'));
     sendDirectCmd(16);
 }
 
-// Shuffle & Repeat Toggle Logic
-function toggleState(type, btn) {
+function toggleState(actionID, btn) {
     btn.classList.toggle('btn-active');
-    let isActive = btn.classList.contains('btn-active') ? 1 : 0;
-    
-    // Command 20 for Repeat, 21 for Shuffle
-    let action = (type === 'rep') ? 20 : 21;
-    sendDirectCmd(action, isActive); // Sending 1 or 0 as folder parameter to tell ESP
+    let val = btn.classList.contains('btn-active') ? 1 : 0;
+    sendDirectCmd(actionID, val);
 }
 
-// Folder Drawer
+// 40 Tracks Generator for Drawer
+function buildTrackDrawer() {
+    let g = document.getElementById("trackGrid");
+    let h = "";
+    for(let i=1; i<=40; i++) {
+        h += `<button class="f-btn" onclick="playTrack(${i})">Track ${i}</button>`;
+    }
+    g.innerHTML = h;
+}
+
 function openDrawer() { document.getElementById('f-drawer').classList.add('open'); }
 function closeDrawer() { document.getElementById('f-drawer').classList.remove('open'); }
-function playFolder(fNum) {
+function playTrack(tNum) {
     closeDrawer();
-    sendDirectCmd(23, fNum); // Command 23 for Folder Selection
+    sendDirectCmd(25, 1, tNum); // Command 25 for specific track playback
 }
 
-// Clock
 function updateClock() {
   const now = new Date(); 
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -275,14 +258,12 @@ function updateClock() {
   h = h % 12 || 12; m = m < 10 ? '0'+m : m; s = s < 10 ? '0'+s : s;
   
   document.getElementById("clock").innerText = `${days[now.getDay()]} ${h}:${m}:${s}${ampm}`;
-  
   let badge = document.getElementById("netBadge");
   badge.innerText = navigator.onLine ? "CLOUD" : "LOCAL";
   badge.className = navigator.onLine ? "badge" : "badge offline";
 }
 setInterval(updateClock, 1000);
 
-// Initialize Firebase
 function initApp() {
   firebase.initializeApp(FB_CONFIG);
   db = firebase.database();
@@ -292,6 +273,8 @@ function initApp() {
 
   firebase.auth().signInAnonymously().then(() => { 
     isConnected = true; 
+    
+    // Listen to status (Instant sync)
     statusRef.on("value", snap => {
       if(!snap.exists()) return;
       let d = snap.val();
@@ -301,9 +284,39 @@ function initApp() {
       }
       if(d.volume !== undefined) document.getElementById("volNum").innerText = d.volume;
     });
+
+    // Bi-directional Settings Sync (Online <-> Offline sync)
+    setRef.on("value", snap => {
+      if(!snap.exists()) return;
+      let settings = snap.val();
+      SLOTS.forEach(s => {
+        if(settings[s.id]) {
+          let en = document.getElementById(s.id+"_en");
+          let sh = document.getElementById(s.id+"_sh");
+          let sm = document.getElementById(s.id+"_sm");
+          let sap = document.getElementById(s.id+"_sap");
+          let eh = document.getElementById(s.id+"_eh");
+          let em = document.getElementById(s.id+"_em");
+          let eap = document.getElementById(s.id+"_eap");
+          
+          if(en) en.checked = settings[s.id].en;
+          if(settings[s.id].start && sh) {
+            let p1 = settings[s.id].start.split(" ");
+            let t1 = p1[0].split(":");
+            sh.value = t1[0]; sm.value = t1[1]; sap.value = p1[1];
+          }
+          if(settings[s.id].stop && eh) {
+            let p2 = settings[s.id].stop.split(" ");
+            let t2 = p2[0].split(":");
+            eh.value = t2[0]; em.value = t2[1]; eap.value = p2[1];
+          }
+        }
+      });
+    });
   });
 
   generateSettingsUI();
+  buildTrackDrawer();
 }
 
 function generateSettingsUI() {
@@ -348,7 +361,7 @@ function generateSettingsUI() {
 }
 
 function saveSettings() {
-  showToast("Settings Saved to Cloud!");
+  showToast("Settings Saved & Synced!");
   if(!isConnected) return;
   
   let dataToSave = {};
@@ -361,7 +374,7 @@ function saveSettings() {
   });
   
   setRef.set(dataToSave);
-  sendDirectCmd(30); // Tell ESP to load new settings
+  sendDirectCmd(30); 
 }
 
 function switchView(v) { 
