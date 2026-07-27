@@ -14,29 +14,26 @@
 
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Segoe UI',sans-serif;background:#121212;color:#e0e0e0;margin:0;padding-bottom:20px;text-align:center;user-select:none; overflow-x: hidden;}
-.container{padding:8px;max-width:600px;margin:auto}
+body{font-family:'Segoe UI',sans-serif;background:#1e1e1e;color:#e0e0e0;margin:0;padding-bottom:10px;text-align:center;user-select:none;touch-action:manipulation}
+.c{padding:5px;max-width:600px;margin:auto}
 
-/* Top Nav */
-.nav-tabs{background:#181818;padding:12px;display:flex;justify-content:center;gap:15px;position:sticky;top:0;z-index:100;box-shadow:0 4px 15px rgba(0,0,0,0.9)}
-.nt-btn{padding:8px 30px;border-radius:20px;font-weight:bold;font-size:13px;background:#252525;color:#888;border:none;cursor:pointer;transition:all 0.2s}
-.nt-btn.act{color:#00e5ff;background:#1a1a1a;box-shadow:inset 0px 0px 8px rgba(0, 229, 255, 0.15); border:1px solid #00e5ff;}
 
-/* Header Card: Perfect Centered Alignment */
-.header-card{margin-bottom:12px; padding:5px 10px;}
-.stat-hdr{color:#fff;font-weight:900;font-size:18px;margin-bottom:15px;text-shadow:0 0 10px #ff007f,0 0 20px #ff007f;letter-spacing:1px}
-.clock-row{display:flex;justify-content:space-between;align-items:center;padding:0 5px;margin-bottom:15px;}
+.nav-tabs{background:linear-gradient(145deg,#1b1b1b,#202020);padding:10px;display:flex;justify-content:center;gap:15px;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,0.5)}
+.nt-btn{padding:8px 25px;border-radius:10px;font-weight:bold;font-size:13px;background:#222;color:#888;border:none;cursor:pointer;box-shadow:4px 4px 8px #131313,-4px -4px 8px #292929;transition:all 0.3s}
+.nt-btn.act{color:#00e5ff;box-shadow:inset 4px 4px 8px #131313,inset -4px -4px 8px #292929;background:#151515}
+
+.card{background:linear-gradient(145deg,#202020,#1b1b1b);border-radius:15px;padding:12px;margin-bottom:10px;box-shadow:6px 6px 12px #131313,-6px -6px 12px #292929;border:1px solid #2a2a2a}
+.stat-hdr{color:#fff;font-weight:900;font-size:18px;margin-bottom:8px;text-shadow:0 0 10px #ff007f,0 0 20px #ff007f;letter-spacing:1px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;margin-top:5px;}
 
 .time-text { font-size: 29px; font-weight: bold; white-space: nowrap; margin-top: 30px; background: linear-gradient(to right, #B38728 0%, #FBF5B7 25%, #B38728 50%, #FBF5B7 75%, #B38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6));}
 .center-murti{width:100px;height:100px;border-radius:50%;border:3px solid #FFD700;box-shadow:0 0 12px rgba(255,215,0,0.8),inset 0 0 8px rgba(255,215,0,0.5);object-fit:cover;margin:0 5px;}
+.badge{font-size:10px;padding:3px 8px;border-radius:5px;font-weight:bold;background:linear-gradient(145deg,#4caf50,#388e3c);color:#fff;text-align:center;box-shadow:2px 2px 4px #131313}
+.badge.offline{background:linear-gradient(145deg,#f44336,#d32f2f)}
+.status-msg{color:#00e676;font-weight:700;font-size:14px;margin-top:5px;letter-spacing:0.5px;text-transform:uppercase; text-align: left; padding-left: 5px;}
+.badge-col{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
 
-//.time-text{font-size:26px;font-weight:900;background:linear-gradient(to right, #D4AF37 0%, #FFF8DC 50%, #D4AF37 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent; text-align:left; flex:1;}
-//.murti-box{position:relative;width:85px;height:85px; flex-shrink:0; display:flex; align-items:center; justify-content:center;}
-//.center-murti{width:85px;height:85px;border-radius:50%;border:2px solid #FFD700;box-shadow:0 0 15px rgba(255,215,0,0.6);object-fit:cover;}
-.badge{position:absolute;right:-5px;top:30px;font-size:9px;padding:3px 6px;border-radius:6px;font-weight:bold;background:#4caf50;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.5);}
-.badge.offline{background:#f44336}
-
-.status-pill{background:#111;color:#00e676;border-radius:8px;padding:10px;font-size:13px;font-weight:bold;border:1px solid #222; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+//.status-pill{background:#111;color:#00e676;border-radius:8px;padding:10px;font-size:13px;font-weight:bold;border:1px solid #222; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 
 /* Grid Buttons with Bottom Border Active Style */
 .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
