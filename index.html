@@ -9,7 +9,7 @@
 <!-- PWA Meta Tags -->
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<meta name="theme-color" content="#ff9800">
+<meta name="theme-color" content="#1e1e1e">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -20,130 +20,177 @@
 body{font-family:'Segoe UI',sans-serif;background:#1e1e1e;color:#e0e0e0;margin:0;padding-bottom:10px;text-align:center;user-select:none;touch-action:manipulation}
 .c{padding:5px;max-width:600px;margin:auto}
 
-.nav-tabs{background:linear-gradient(145deg,#1b1b1b,#202020);padding:10px;display:flex;justify-content:center;gap:15px;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,0.5)}
-.nt-btn{padding:8px 25px;border-radius:10px;font-weight:bold;font-size:13px;background:#222;color:#888;border:none;cursor:pointer;box-shadow:4px 4px 8px #131313,-4px -4px 8px #292929;transition:all 0.3s}
-.nt-btn.act{color:#00e5ff;box-shadow:inset 4px 4px 8px #131313,inset -4px -4px 8px #292929;background:#151515}
+.nav-tabs{background:#1a1a1a;padding:10px;display:flex;justify-content:center;gap:15px;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,0.8)}
+.nt-btn{padding:8px 30px;border-radius:20px;font-weight:bold;font-size:13px;background:#222;color:#888;border:none;cursor:pointer;transition:all 0.2s}
+.nt-btn.act{color:#00e5ff;background:#111;box-shadow:inset 0px 0px 8px rgba(0, 229, 255, 0.2)}
 
-.card{background:linear-gradient(145deg,#202020,#1b1b1b);border-radius:15px;padding:12px;margin-bottom:10px;box-shadow:6px 6px 12px #131313,-6px -6px 12px #292929;border:1px solid #2a2a2a}
-.stat-hdr{color:#fff;font-weight:900;font-size:18px;margin-bottom:8px;text-shadow:0 0 10px #ff007f,0 0 20px #ff007f;letter-spacing:1px}
-.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;margin-top:5px;}
+.card{background:#1a1a1a;border-radius:15px;padding:15px;margin-bottom:12px;border:1px solid #2a2a2a;box-shadow: 0px 5px 15px rgba(0,0,0,0.5);}
+.stat-hdr{color:#fff;font-weight:900;font-size:18px;margin-bottom:10px;text-shadow:0 0 10px #ff007f,0 0 20px #ff007f;letter-spacing:1px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;margin-top:5px;padding:0 10px;}
 
-.time-text { font-size: 29px; font-weight: bold; white-space: nowrap; margin-top: 30px; background: linear-gradient(to right, #B38728 0%, #FBF5B7 25%, #B38728 50%, #FBF5B7 75%, #B38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6)); }
+.time-text { font-size: 26px; font-weight: bold; white-space: nowrap; background: linear-gradient(to right, #B38728 0%, #FBF5B7 50%, #B38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5)); }
 
-.center-murti{width:100px;height:100px;border-radius:50%;border:3px solid #FFD700;box-shadow:0 0 12px rgba(255,215,0,0.8),inset 0 0 8px rgba(255,215,0,0.5);object-fit:cover;margin:0 5px;}
-.badge{font-size:10px;padding:3px 8px;border-radius:5px;font-weight:bold;background:linear-gradient(145deg,#4caf50,#388e3c);color:#fff;text-align:center;box-shadow:2px 2px 4px #131313}
-.badge.offline{background:linear-gradient(145deg,#f44336,#d32f2f)}
-.status-msg{color:#00e676;font-weight:700;font-size:14px;margin-top:5px;letter-spacing:0.5px;text-transform:uppercase; text-align: left; padding-left: 5px;}
-.badge-col{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
+.center-murti{width:110px;height:110px;border-radius:50%;border:2px solid #FFD700;box-shadow:0 0 15px rgba(255,215,0,0.6);object-fit:cover;}
+.badge{font-size:10px;padding:4px 10px;border-radius:5px;font-weight:bold;background:#4caf50;color:#fff;text-align:center;}
+.badge.offline{background:#f44336}
 
+/* Top Status Pill */
+.status-pill { background: #111; color: #00e676; border-radius: 8px; padding: 8px; font-size: 13px; font-weight: bold; margin-top: 5px; border: 1px solid #222; }
+
+/* Grid Buttons */
 .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.q-btn{border:none;border-radius:12px;padding:12px 5px;color:#fff;font-weight:700;width:100%;cursor:pointer;font-size:13px;background:linear-gradient(145deg,#242424,#1e1e1e);box-shadow:4px 4px 8px #131313,-4px -4px 8px #292929;transition:all 0.2s}
-.q-btn:active{box-shadow:inset 5px 5px 10px #0a0a0a,inset -5px -5px 10px #252525;background:#151515;color:#00e5ff}
-.b-blu{border-bottom:6px solid #1976d2}.b-org{border-bottom:6px solid #f57c00}.b-yel{border-bottom:6px solid #fbc02d;color:#fbc02d}.b-grn{border-bottom:6px solid #388e3c}.b-pur{border-bottom:6px solid #7b1fa2}
+.q-btn{border:none;border-radius:8px;padding:15px 5px;color:#fff;font-weight:bold;width:100%;cursor:pointer;font-size:14px;background:#222;transition:all 0.1s}
+.q-btn:active{transform:scale(0.96); opacity:0.8;}
+.b-blu{border-bottom:4px solid #2196f3}.b-org{border-bottom:4px solid #ff9800}.b-yel{border-bottom:4px solid #fbc02d;color:#fbc02d}.b-grn{border-bottom:4px solid #4caf50}.b-pur{border-bottom:4px solid #9c27b0}
 
-.t-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.sq-btn{width:45px;height:45px;border-radius:12px;background:linear-gradient(145deg,#242424,#1e1e1e);box-shadow:4px 4px 8px #131313,-4px -4px 8px #292929;color:#00e5ff;border:none;border-bottom:6px solid #00e5ff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.sq-btn:active{box-shadow:inset 5px 5px 10px #0a0a0a,inset -5px -5px 10px #252525;background:#151515;border-bottom:6px solid #00e5ff;}
-.t-name{flex:1;background:#151515;height:45px;margin:0 10px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#00e676;font-weight:bold;box-shadow:inset 4px 4px 8px #0d0d0d,inset -4px -4px 8px #1d1d1d;overflow:hidden;white-space:nowrap}
+/* Middle Player Section */
+.t-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.sq-btn{width:45px;height:45px;border-radius:8px;background:#222;color:#00e5ff;border:none;border-bottom:4px solid #00e5ff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sq-btn:active{transform:scale(0.92);}
+.t-name{flex:1;background:#111;height:45px;margin:0 12px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#00e676;font-weight:bold;overflow:hidden;white-space:nowrap;border:1px solid #222;}
 
-.cir-row{display:flex;justify-content:space-around;align-items:center}
-.cir-btn{width:54px;height:55px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:22px;color:#fff;border:none;cursor:pointer;position:relative;background:linear-gradient(145deg,#242424,#1e1e1e);box-shadow:4px 4px 8px #131313,-4px -4px 8px #292929;transition:all 0.2s}
-.c-pur{color:#9c27b0;border-bottom:6px solid #9c27b0;background:none} .c-org{color:#ff9800;border-bottom:6px solid #ff9800;background:none} .c-teal{color:#00bcd4;border-bottom:6px solid #00bcd4;background:none}
-.cir-btn.act{box-shadow:inset 5px 5px 10px #0a0a0a,inset -5px -5px 10px #252525;background:#151515;color:#00e676;border-bottom:6px solid #00e676;text-shadow:0 0 10px #00e676;}
+/* Circular Controls with STOP button */
+.cir-row{display:flex;justify-content:space-between;align-items:center;padding:0 5px;}
+.cir-btn{width:50px;height:50px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;color:#fff;border:none;cursor:pointer;background:#222;transition:all 0.1s}
+.c-pur{color:#9c27b0;border-bottom:4px solid #9c27b0} 
+.c-org{color:#ff9800;border-bottom:4px solid #ff9800} 
+.c-red{color:#f44336;border-bottom:4px solid #f44336} /* Stop Button */
+.cir-btn:active {transform:scale(0.92);}
+.cir-btn.act{background:#111;color:#00e676;border-bottom:4px solid #00e676;}
 
-.c-row{display:flex;justify-content:center;align-items:center;margin-bottom:12px; gap: 15px;}
-.tile-btn{width:22%;padding:10px 0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#888;border:none;cursor:pointer;background:linear-gradient(145deg,#242424,#1e1e1e);box-shadow:4px 4px 8px #131313,-4px -4px 8px #292929;transition:all 0.2s}
-.tile-btn .icon{font-size:18px;margin-bottom:2px}
-.t-red{color:#f44336;border-bottom:6px solid #f44336;background:none} .t-blu{color:#2196f3;border-bottom:6px solid #2196f3;background:none}
-.tile-btn:active, .tile-btn.act{box-shadow:inset 5px 5px 10px #0a0a0a,inset -5px -5px 10px #252525 !important;background:#151515 !important;color:#00e676;border-bottom:6px solid #00e676;text-shadow:0 0 10px #00e676;}
+/* Bottom Volume Row */
+.c-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px; gap:10px;}
+.tile-btn{flex:1;padding:12px 0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#aaa;border:none;cursor:pointer;background:#222;}
+.tile-btn .icon{font-size:16px;margin-right:5px;}
+.t-red{border-bottom:4px solid #f44336; color:#f44336;} .t-blu{border-bottom:4px solid #2196f3; color:#2196f3;}
+.tile-btn:active{transform:scale(0.95);}
 
-.vol-box{width:22%;height:45px;background:#151515;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fbc02d;box-shadow:inset 4px 4px 8px #0d0d0d,inset -4px -4px 8px #1d1d1d}
+.vol-box{width:60px;height:45px;background:#111;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#fbc02d;border:1px solid #333;}
 
-#toast{visibility:hidden;background:linear-gradient(145deg,#fff,#e6e6e6);color:#000;padding:12px 25px;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);border-radius:30px;z-index:99;font-weight:bold;font-size:13px;box-shadow:0 10px 20px rgba(0,0,0,0.5)}
-.toast-show{visibility:visible!important;animation:fade 2s}
+/* Footer */
+.footer-text{margin-top:20px;font-size:11px;color:#666;font-weight:bold;letter-spacing:1px;text-transform:uppercase;}
+
+/* Modal for Track Selection */
+.modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:999; justify-content:center; align-items:center; backdrop-filter: blur(5px); }
+.modal-content { background:#1e1e1e; width:92%; max-width:500px; height:85vh; border-radius:12px; border:2px solid #00e676; display:flex; flex-direction:column; box-shadow: 0 0 20px rgba(0, 230, 118, 0.2); }
+.modal-header { display:flex; justify-content:space-between; align-items:center; padding:15px; border-bottom:1px solid #333; }
+.modal-title { color:#00e676; font-weight:bold; font-size:16px; display:flex; align-items:center; gap:8px;}
+.close-btn { background:#f44336; color:#fff; border:none; padding:8px 15px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer; }
+.modal-body { padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
+.track-item { background:#111; color:#00bcd4; padding:15px; border-radius:8px; border:1px solid #2a2a2a; text-align:left; font-weight:bold; font-size:14px; cursor:pointer; transition:background 0.1s; }
+.track-item:active { background:#222; color:#fff; }
+
+#toast{visibility:hidden;background:#fff;color:#000;padding:12px 25px;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);border-radius:30px;z-index:99;font-weight:bold;font-size:13px;}
+.toast-show{visibility:visible!important;animation:fade 1.5s}
 @keyframes fade{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
 
+/* Settings Section */
 #view-sett{display:none}
 .set-tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:15px}
-.set-tb{background:#121212;border:1px solid #333;color:#888;padding:10px 30px;border-radius:20px;font-size:13px;font-weight:bold;cursor:pointer}
-.set-tb.act{background:#ff9800;color:#000;border-color:#ff9800}
+.set-tb{background:#111;border:1px solid #333;color:#888;padding:10px 30px;border-radius:20px;font-size:13px;font-weight:bold;cursor:pointer}
+.set-tb.act{background:#333;color:#00e676;border-color:#00e676}
 .set-cont{display:none}
 .set-cont.act{display:block}
-.cd{background:#121212;padding:12px;margin-bottom:12px;border-radius:12px;text-align:left;border:1px solid #333;border-left:4px solid #ff9800}
+.cd{background:#1a1a1a;padding:12px;margin-bottom:12px;border-radius:12px;text-align:left;border:1px solid #333;border-left:4px solid #ff9800}
 .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:bold;font-size:13px;color:#ff9800}
-.rw{display:flex;justify-content:space-between;align-items:center;margin-top:6px;background:#222;padding:8px;border-radius:6px;font-size:12px;}
+.rw{display:flex;justify-content:space-between;align-items:center;margin-top:6px;background:#111;padding:8px;border-radius:6px;font-size:12px;}
 .sw{position:relative;display:inline-block;width:36px;height:20px}
 .sw input{opacity:0;width:0;height:0}
 .sw span{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#555;transition:.3s;border-radius:20px}
 .sw span:before{position:absolute;content:'';height:16px;width:16px;left:2px;bottom:2px;background:#ccc;transition:.3s;border-radius:50%}
 input:checked+span{background:#4caf50}
 input:checked+span:before{transform:translateX(16px);background:#fff}
-select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cursor:pointer;}
 .sync-btn{background:#4caf50;color:#fff;border:none;padding:15px;width:100%;border-radius:15px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:10px}
 </style>
 </head>
 <body>
-<div class="nav-tabs"><button class="nt-btn act" id="tab-dash" onclick="switchView('dash')">CONTROL</button><button class="nt-btn" id="tab-sett" onclick="switchView('sett')">SETTING</button></div>
+
+<div class="nav-tabs">
+  <button class="nt-btn act" id="tab-dash" onclick="switchView('dash')">CONTROL</button>
+  <button class="nt-btn" id="tab-sett" onclick="switchView('sett')">SETTING</button>
+</div>
+
 <div class="c">
+  <!-- DASHBOARD VIEW -->
   <div id="view-dash">
-    <div class="card">
+    
+    <div class="card" style="border:none; background:transparent; padding:5px;">
       <div class="stat-hdr">🔴🙏 RAMESHWAR 🙏🔴</div>
       <div class="stat-row">
         <div id="clock" class="time-text">--:--</div>
-        <img src="./icon-192.png" class="center-murti" alt="Bhagwan Darshan">
-        <div class="badge-col">
-          <span id="netBadge" class="badge offline">WAIT</span>
-          <span id="playModeBadge" class="badge" style="display:none;">AUTO</span>
+        <div style="position:relative;">
+          <img src="./icon-192.png" class="center-murti" alt="Bhagwan">
+          <span id="netBadge" class="badge offline" style="position:absolute;right:-20px;top:45px;">WAIT</span>
         </div>
       </div>
-      <div id="statusMsg" class="status-msg">WAITING...</div>
+      <div class="status-pill" id="statusPill">WAITING...</div>
     </div>
-<div class="q-grid">
-      <button id="bMan" class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
-      <button id="bArt" class="q-btn b-org" onclick="cmd(8)">Arti &amp; Jay</button>
-      <button id="bTodA" class="q-btn b-yel" onclick="cmd(4)">today's Arti</button>
-      <button id="bTodG" class="q-btn b-grn" onclick="cmd(5)">today's Godi</button>
-      <button id="bD1" class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
-      <button id="bD2" class="q-btn b-pur" onclick="cmd(7)">Dhun Evening</button>
-      <button id="bHc1" class="q-btn b-org" onclick="cmd(12)">H. Chalisa 1</button>
-      <button id="bHc2" class="q-btn b-org" onclick="cmd(13)">H. Chalisa 2</button>
+
+    <div class="q-grid">
+      <button class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
+      <button class="q-btn b-org" onclick="cmd(8)">Arti & Jay</button>
+      <button class="q-btn b-yel" onclick="cmd(4)">Today's Arti</button>
+      <button class="q-btn b-blu" onclick="cmd(5)">Today's Godi</button>
+      <button class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
+      <button class="q-btn b-grn" onclick="cmd(7)">Dhun Evening</button>
+      <button class="q-btn b-org" onclick="cmd(12)">H. Chalisa 1</button>
+      <button class="q-btn b-org" onclick="cmd(13)">H. Chalisa 2</button>
     </div>
     
     <div class="card">
-      <div class="t-row"><button class="sq-btn" onclick="cmd(19)">⏮</button><div class="t-name" id="trackName">-</div><button class="sq-btn" onclick="cmd(18)">⏭</button></div>
+      <div class="t-row">
+        <button class="sq-btn" onclick="cmd(19)">⏮</button>
+        <div class="t-name" id="trackName">WAITING...</div>
+        <button class="sq-btn" onclick="cmd(18)">⏭</button>
+      </div>
+      
       <div class="cir-row">
-        <div id="bDir" class="cir-btn c-pur" title="Select Track">📂<select class="f-sel" id="trackSel" onchange="selectTrack(this)"><option value="" disabled selected>Select Track</option></select></div>
+        <button class="cir-btn c-pur" onclick="openTrackModal()">📂</button>
         <button class="cir-btn c-org" id="btnShuf" onclick="cmd(21)">🔀</button>
         <button class="cir-btn c-org" id="btnRep" onclick="cmd(20)">🔁</button>
         <button class="cir-btn c-pur" id="btnMute" onclick="cmd(22)">🔊</button>
+        <button class="cir-btn c-red" id="btnStop" onclick="cmd(16)">⏹</button>
       </div>
     </div>
     
-    <div class="card">
-      <div class="c-row" style="margin-bottom:0">
-        <button class="tile-btn t-red" onclick="cmd(17)"><span class="icon">💫</span>RESTART</button>
-        <button class="tile-btn t-blu" onclick="cmd(10)"><span class="icon">➖</span>VOL -</button>
-        <div class="vol-box" id="volNum">--</div>
-        <button class="tile-btn t-blu" onclick="cmd(9)"><span class="icon">➕</span>VOL +</button>
-      </div>
+    <div class="c-row">
+      <button class="tile-btn t-red" onclick="cmd(17)"><span class="icon">💫</span>RESTART</button>
+      <button class="tile-btn t-blu" onclick="cmd(10)"><span class="icon">➖</span>VOL -</button>
+      <div class="vol-box" id="volNum">19</div>
+      <button class="tile-btn t-blu" onclick="cmd(9)"><span class="icon">➕</span>VOL +</button>
     </div>
-    <div style="margin-top:25px;font-size:13px;color:#888;font-weight:bold;letter-spacing:1px;">RAMESHWAR CLOUD EDITION SMARAN V2</div>
+    
+    <div class="footer-text">RAMESHWAR MAKKHAN EDITION PRO (SMARAN V2)</div>
   </div>
 
+  <!-- SETTINGS VIEW -->
   <div id="view-sett">
-    <div id="set-title" style="font-size:16px; font-weight:bold; margin-bottom:15px; color:#ff9800;">⚙️ SETTINGS PANEL</div>
-    
     <div class="set-tabs">
       <button class="set-tb act" onclick="openSetTab('g', this)">MAIN TIMER</button>
       <button class="set-tb" onclick="openSetTab('lk', this)">LOCK SLOTS</button>
     </div>
     <div id="settings-container"></div>
-    <button class="sync-btn" onclick="syncSettingsToCloud()">💾 SAVE & SYNC TO MODULE</button>
+    <button class="sync-btn" onclick="syncSettingsToCloud()">💾 SAVE SETTINGS</button>
   </div>
 </div>
+
+<!-- TRACK SELECTION MODAL -->
+<div id="trackModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">📂 SELECT TRACK</div>
+      <button class="close-btn" onclick="closeTrackModal()">✖ CLOSE</button>
+    </div>
+    <div class="modal-body" id="trackListDiv">
+      <!-- Tracks will load here -->
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
+// Firebase Config (Keep your credentials)
 const FB_CONFIG = { 
   apiKey: "AIzaSyDCH0BCvuR1VafR1HaJ_JedVED1pP2ri-k", 
   authDomain: "rameshwar-smaran.firebaseapp.com", 
@@ -166,52 +213,40 @@ const S_CONF = [
   { t:'lk', id:'bl3', type:'slot', lbl:'L3: Everyday', c:'#d32f2f', v:['bl3SH','bl3SM','bl3EH','bl3EM','enBl3'] }
 ];
 
-let db, cmdRef, statusRef, setRef, isConnected=false, lastStatusTime = 0, isSending = false;
+let db, cmdRef, statusRef, setRef, isConnected=false, lastStatusTime = 0;
 
-function genSettings() {
-  let html = {'g':'', 'lk':''};
-  S_CONF.forEach(c => {
-    let cd = `<div class='cd' style='border-left-color:${c.c}'><div class='hd'><span style='color:${c.c}'>${c.lbl}</span><label class='sw'><input type='checkbox' id='${c.id}_en'><span></span></label></div>`;
-    cd += `<div class='rw'><span>START</span><div>${timeIn(c.id+'_s')}</div></div><div class='rw'><span>STOP</span><div>${timeIn(c.id+'_e')}</div></div>`;
-    html[c.t] += cd + `</div>`;
-  });
-  const cont = document.getElementById('settings-container');
-  cont.innerHTML = '';
-  ['g','lk'].forEach(t => { 
-    let div=document.createElement('div'); div.className=`set-cont ${t==='g'?'act':''}`; div.id='tc-'+t; div.innerHTML=html[t]; cont.appendChild(div); 
-  });
-}
-
-function timeIn(id) {
-  return `<select id='${id}_h' style='opacity:1;position:relative;width:auto;padding:4px;border-radius:4px;background:#333;color:#fff;border:1px solid #555;'><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select> : 
-          <select id='${id}_m' style='opacity:1;position:relative;width:auto;padding:4px;border-radius:4px;background:#333;color:#fff;border:1px solid #555;'>${Array.from({length:60},(_,i)=>`<option value='${i<10?'0'+i:i}'>${i<10?'0'+i:i}</option>`).join('')}</select>
-          <select id='${id}_ap' style='opacity:1;position:relative;width:auto;padding:4px;border-radius:4px;background:#333;color:#fff;border:1px solid #555;'><option value='0'>AM</option><option value='1'>PM</option></select>`;
-}
-
-function loadTrackList() {
-  const sel = document.getElementById("trackSel");
-  sel.innerHTML = '<option value="" disabled selected>Select Track</option>';
-  TRACKS.forEach((t, i) => { 
-    let opt = document.createElement("option"); 
-    opt.value = i+1; 
-    opt.text = (i+1 < 10 ? "0" : "") + (i+1) + ". " + t; 
-    sel.appendChild(opt); 
+// ટ્રેક લિસ્ટને નવા પોપઅપમાં લોડ કરવાનું ફંક્શન
+function loadTrackListModal() {
+  const listDiv = document.getElementById("trackListDiv");
+  listDiv.innerHTML = '';
+  TRACKS.forEach((t, i) => {
+    let btn = document.createElement("div");
+    btn.className = "track-item";
+    btn.innerText = (i + 1) + ". " + t;
+    btn.onclick = () => { 
+      cmd(1, 4, i + 1); // ટ્રેક પ્લે કમાન્ડ
+      closeTrackModal(); 
+    };
+    listDiv.appendChild(btn);
   });
 }
 
-function selectTrack(sel) { 
-  if(sel.value) { 
-    cmd(1, 4, parseInt(sel.value)); 
-    sel.selectedIndex = 0; 
-  } 
+function openTrackModal() { document.getElementById("trackModal").style.display = 'flex'; }
+function closeTrackModal() { document.getElementById("trackModal").style.display = 'none'; }
+
+// 0.0 Delay Command Function 
+function cmd(actionName, folder = 0, track = 0) { 
+  toast("Command Sent!"); 
+
+  if (navigator.onLine && isConnected) {
+      cmdRef.set({action: actionName, folder: folder, track: track, timestamp: Date.now()}); 
+  } else {
+      fetch(`http://192.168.4.8/cmd?action=${actionName}&folder=${folder}&track=${track}`, { mode: 'no-cors' })
+        .catch(e => console.log("ESP Offline"));
+  }
 }
 
-function initFB() {
-  firebase.initializeApp(FB_CONFIG); db = firebase.database();
-  cmdRef = db.ref("/smaran_v1/command"); statusRef = db.ref("/smaran_v1/status"); setRef = db.ref("/smaran_v1/settings");
-  firebase.auth().signInAnonymously().then(() => { isConnected=true; listenStatus(); loadSettingsFromCloud(); });
-}
-
+// બાકીના ફંક્શન (ઘડિયાળ, ફાયરબેઝ, સેટિંગ્સ)
 function updateLocalClock() {
   const now = new Date(); const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   let h12 = now.getHours() % 12 || 12; let ampm = now.getHours() >= 12 ? " PM" : " AM";
@@ -224,10 +259,16 @@ function updateLocalClock() {
   } else if (!navigator.onLine) {
     nb.className = "badge offline"; nb.innerText = "OFFLINE";
   } else {
-    nb.className = "badge offline"; nb.innerText = "WAITING";
+    nb.className = "badge offline"; nb.innerText = "LOCAL";
   }
 }
 setInterval(updateLocalClock, 1000);
+
+function initFB() {
+  firebase.initializeApp(FB_CONFIG); db = firebase.database();
+  cmdRef = db.ref("/smaran_v1/command"); statusRef = db.ref("/smaran_v1/status"); setRef = db.ref("/smaran_v1/settings");
+  firebase.auth().signInAnonymously().then(() => { isConnected=true; listenStatus(); });
+}
 
 function listenStatus() {
   statusRef.on("value", snap => {
@@ -236,54 +277,37 @@ function listenStatus() {
     lastStatusTime = Date.now(); 
     
     if(d.statusMsg) {
-        document.getElementById("statusMsg").innerText = d.statusMsg;
+        document.getElementById("statusPill").innerText = d.statusMsg;
         document.getElementById("trackName").innerText = d.statusMsg;
     }
     if(d.volume !== undefined) {
         document.getElementById("volNum").innerText = d.volume;
     }
-    
     document.getElementById("btnRep").classList.toggle("act", d.isRepeat == 1);
     document.getElementById("btnShuf").classList.toggle("act", d.isShuffle == 1);
   });
 }
 
-function cmd(actionName, folder = 0, track = 0) { 
-  if(isSending) return; isSending = true; 
-  toast("Command Sent: " + actionName); 
-
-  if (navigator.onLine) {
-      if(isConnected) {
-          cmdRef.set({action: actionName, folder: folder, track: track, timestamp: Date.now()}); 
-      }
-  } else {
-      fetch(`http://192.168.4.8/cmd?action=${actionName}&folder=${folder}&track=${track}`, { mode: 'no-cors' })
-        .catch(e => console.log("Offline Request Failed"));
-  }
-  
-  setTimeout(() => { isSending = false; }, 300); 
-}
-
-function toast(m) { let t=document.getElementById("toast"); t.innerText=m; t.className="toast-show"; setTimeout(()=>t.className="",2500); }
-function switchView(v) { document.getElementById('view-dash').style.display = v==='dash'?'block':'none'; document.getElementById('view-sett').style.display = v==='sett'?'block':'none'; document.getElementById('tab-dash').classList.toggle('act',v==='dash'); document.getElementById('tab-sett').classList.toggle('act',v==='sett'); }
-function openSetTab(id, b) { document.querySelectorAll('.set-cont').forEach(e=>e.classList.remove('act')); document.querySelectorAll('.set-tb').forEach(e=>e.classList.remove('act')); document.getElementById('tc-'+id).classList.add('act'); b.classList.add('act'); }
-
-function loadSettingsFromCloud() {
-  setRef.on("value", snap => {
-    if(!snap.exists()) return; const d=snap.val();
-    S_CONF.forEach(c => {
-      let en = document.getElementById(c.id+'_en'); if(en) en.checked = (d[c.v[c.v.length-1]] == 1);
-      if(d[c.v[0]]!==undefined) { 
-        let h12 = d[c.v[0]]%12; if(h12==0) h12=12; 
-        document.getElementById(c.id+'_s_h').value=h12; document.getElementById(c.id+'_s_m').value=parseInt(d[c.v[1]]);
-      }
-    });
+function genSettings() {
+  let html = {'g':'', 'lk':''};
+  S_CONF.forEach(c => {
+    let cd = `<div class='cd' style='border-left-color:${c.c}'><div class='hd'><span style='color:${c.c}'>${c.lbl}</span><label class='sw'><input type='checkbox' id='${c.id}_en'><span></span></label></div>`;
+    cd += `<div class='rw'><span>START</span><div><select id='${c.id}_s_h'>${Array.from({length:12},(_,i)=>`<option>${i+1}</option>`).join('')}</select> : <select id='${c.id}_s_m'>${Array.from({length:60},(_,i)=>`<option>${i<10?'0'+i:i}</option>`).join('')}</select></div></div>`;
+    html[c.t] += cd + `</div>`;
+  });
+  const cont = document.getElementById('settings-container');
+  ['g','lk'].forEach(t => { 
+    let div=document.createElement('div'); div.className=`set-cont ${t==='g'?'act':''}`; div.id='tc-'+t; div.innerHTML=html[t]; cont.appendChild(div); 
   });
 }
 
+function switchView(v) { document.getElementById('view-dash').style.display = v==='dash'?'block':'none'; document.getElementById('view-sett').style.display = v==='sett'?'block':'none'; document.getElementById('tab-dash').classList.toggle('act',v==='dash'); document.getElementById('tab-sett').classList.toggle('act',v==='sett'); }
+function openSetTab(id, b) { document.querySelectorAll('.set-cont').forEach(e=>e.classList.remove('act')); document.querySelectorAll('.set-tb').forEach(e=>e.classList.remove('act')); document.getElementById('tc-'+id).classList.add('act'); b.classList.add('act'); }
+function toast(m) { let t=document.getElementById("toast"); t.innerText=m; t.className="toast-show"; setTimeout(()=>t.className="",1500); }
+
 window.onload = () => {
     genSettings();
-    loadTrackList();
+    loadTrackListModal();
     initFB();
 };
 </script>
