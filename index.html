@@ -6,7 +6,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
 <title>RAMESHWAR NITYAM</title>
 
-<link rel="manifest" href="manifest.json?v=3">
+<!-- PWA Meta Tags -->
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="theme-color" content="#ff9800">
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -86,7 +90,8 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
       <div class="stat-hdr">🔴🙏 RAMESHWAR 🙏🔴</div>
       <div class="stat-row">
         <div id="clock" class="time-text">--:--</div>
-        <img src="https://i.ibb.co/HpDS8yDF/apple-touch-icon.png" class="center-murti" alt="Bhagwan Darshan">
+        <!-- અહીંયા ઓફલાઇન ઇમેજ નો પાથ સેટ કર્યો છે -->
+        <img src="./icon-192.png" class="center-murti" alt="Bhagwan Darshan">
         <div class="badge-col">
           <span id="netBadge" class="badge offline">WAIT</span>
           <span id="playModeBadge" class="badge" style="display:none;">AUTO</span>
@@ -94,16 +99,13 @@ select.f-sel{opacity:0;position:absolute;width:100%;height:100%;left:0;top:0;cur
       </div>
       <div id="statusMsg" class="status-msg">WAITING...</div>
     </div>
-     
-    <div class="q-grid">
+<div class="q-grid">
       <button id="bMan" class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
       <button id="bArt" class="q-btn b-org" onclick="cmd(8)">Arti &amp; Jay</button>
       <button id="bTodA" class="q-btn b-yel" onclick="cmd(4)">today's Arti</button>
       <button id="bTodG" class="q-btn b-grn" onclick="cmd(5)">today's Godi</button>
       <button id="bD1" class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
       <button id="bD2" class="q-btn b-pur" onclick="cmd(7)">Dhun Evening</button>
-      
-      <!-- હાર્ડવેર માં Action 12 અને 13 સેટ હોવાથી મેં સાદું cmd(12) અને cmd(13) કરી દીધું છે -->
       <button id="bHc1" class="q-btn b-org" onclick="cmd(12)">H. Chalisa 1</button>
       <button id="bHc2" class="q-btn b-org" onclick="cmd(13)">H. Chalisa 2</button>
     </div>
@@ -306,7 +308,20 @@ function resetBtn(btn) {
 }
 
 function get24(id) { let h=parseInt(document.getElementById(id+'_h').value); let ap=parseInt(document.getElementById(id+'_ap').value); return ap==1?(h==12?12:h+12):(h==12?0:h); }
-window.onload=()=>{ genSettings(); loadTrackList(); initFB(); updateLocalClock(); };
+
+// આ કોડ થી Service Worker (ઓફલાઇન સિસ્ટમ) ચાલુ થશે
+window.onload=()=>{ 
+  genSettings(); 
+  loadTrackList(); 
+  initFB(); 
+  updateLocalClock(); 
+  
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('SW Registered!'))
+      .catch(err => console.log('SW Reg Error:', err));
+  }
+};
 </script>
 </body>
 </html>
