@@ -245,7 +245,7 @@ function cmd(a, f=0, t=0) {
   if(isSending) return; isSending = true;
   db.ref('/smaran_v1/command').set({ action: a, folder: f, track: t })
     .then(()=>{ toast("Sent: "+a); isSending=false; })
-    .catch(()=>{ toast("Send Failed!"); isSending=false; });
+    .catch((err)=>{ toast("Send Failed: "+err.message); isSending=false; });
 }
 
 // 🟢 લાઈવ સ્ટેટસ — Firebase realtime listener (ડિવાઈસ દર 1.2 સેકન્ડે /smaran_v1/status અપડેટ કરે છે) 🟢
@@ -282,7 +282,21 @@ db.ref('/smaran_v1/status').on('value', (snap) => {
     let b = document.getElementById("btn-" + id);
     if(b) b.classList.toggle("act-glow", !!(d.playing && d.activeCmd === id));
   });
+}, (err) => {
+  // 🔴 Firebase Rules બ્લોક કરે અથવા બીજી કોઈ ભૂલ હોય તો સીધું સ્ક્રીન પર જ સાચું કારણ બતાવો 🔴
+  document.getElementById("statusMsg").innerText = "FIREBASE ERROR: " + err.message;
+  document.getElementById("netBadge").className = "badge offline";
+  document.getElementById("netBadge").innerText = "DB ERROR";
 });
+
+// 🟢 પેજ ખૂલતાં જ એક વાર ટેસ્ટ-કનેક્શન કરી, Rules પરમિશન બરાબર છે કે નહિ ચેક કરો 🟢
+db.ref('/smaran_v1/status').once('value')
+  .then(() => { console.log("Firebase read OK — device data node reachable."); })
+  .catch((err) => {
+    document.getElementById("statusMsg").innerText = "PERMISSION ERROR: " + err.message + " — Firebase Rules ચેક કરો!";
+    document.getElementById("netBadge").className = "badge offline";
+    document.getElementById("netBadge").innerText = "RULES ISSUE?";
+  });
 
 // 🟢 દર સેકન્ડે ટ્રેક ટાઈમર લોકલી ટિક કરો — "લાઈવ" કાઉન્ટર દેખાય, Firebase delay ની અસર ન થાય 🟢
 setInterval(() => {
