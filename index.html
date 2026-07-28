@@ -232,7 +232,7 @@ function openFolder() {
   const grid = document.getElementById('trackListGrid');
   if(!grid.dataset.built){
     let h="";
-    for(let i=0;i<40;i++){ h+=`<button class="modal-trk-btn" onclick="playSelectedTrack(${i+1})">${i+1}. ${f4T[i]}</button>`; }
+    for(let i=0;i<40;i++){ h+=`<button id="trk-${i+1}" class="modal-trk-btn" onclick="playSelectedTrack(${i+1})">${i+1}. ${f4T[i]}</button>`; }
     grid.innerHTML = h; grid.dataset.built = "1";
   }
   document.getElementById('fldModal').style.display = 'block';
@@ -282,6 +282,26 @@ db.ref('/smaran_v1/status').on('value', (snap) => {
     let b = document.getElementById("btn-" + id);
     if(b) b.classList.toggle("act-glow", !!(d.playing && d.activeCmd === id));
   });
+
+  // 🟢 ફોલ્ડર બટન (📂) — ફોલ્ડર 4 માંથી ટ્રેક વાગતું હોય ત્યારે લીલું બતાવો 🟢
+  let bFld = document.getElementById("btnFld");
+  let inF4 = (d.playing && d.curFld === 4);
+  bFld.classList.toggle("active-btn", inF4);
+
+  // 🟢 SELECT TRACK મોડલમાં કરંટ વાગતું ટ્રેક હાઈલાઈટ કરો 🟢
+  if(window._lastHiTrk && window._lastHiTrk !== d.f4track){
+    let old = document.getElementById("trk-" + window._lastHiTrk);
+    if(old) old.classList.remove("act-glow");
+  }
+  if(inF4 && d.f4track){
+    let cur = document.getElementById("trk-" + d.f4track);
+    if(cur) cur.classList.add("act-glow");
+    window._lastHiTrk = d.f4track;
+  } else if(window._lastHiTrk){
+    let old = document.getElementById("trk-" + window._lastHiTrk);
+    if(old) old.classList.remove("act-glow");
+    window._lastHiTrk = null;
+  }
 }, (err) => {
   // 🔴 Firebase Rules બ્લોક કરે અથવા બીજી કોઈ ભૂલ હોય તો સીધું સ્ક્રીન પર જ સાચું કારણ બતાવો 🔴
   document.getElementById("statusMsg").innerText = "FIREBASE ERROR: " + err.message;
