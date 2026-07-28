@@ -1,4 +1,3 @@
-
 const CACHE_NAME = 'rameshwar-cache-v2';
 
 // ઓફલાઇન સેવ કરવા માટેની ફાઇલો
