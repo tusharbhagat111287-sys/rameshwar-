@@ -1,315 +1,369 @@
+<!DOCTYPE html><html lang="gu"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><title>RAMESHWAR ONLINE</title>
 
-<!DOCTYPE html>
-<html lang="gu">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<title>RAMESHWAR NITYAM</title>
-
-<!-- PWA Meta Tags -->
-<link rel="manifest" href="./manifest.json">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<meta name="theme-color" content="#1e1e1e">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Segoe UI',sans-serif;background:#1e1e1e;color:#e0e0e0;margin:0;padding-bottom:10px;text-align:center;user-select:none;touch-action:manipulation}
+body{font-family:'Segoe UI',sans-serif;background:#121212;color:#e0e0e0;margin:0;padding-bottom:20px;text-align:center;user-select:none;touch-action:manipulation}
 .c{padding:5px;max-width:600px;margin:auto}
-
-.nav-tabs{background:#1a1a1a;padding:10px;display:flex;justify-content:center;gap:15px;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,0.8)}
-.nt-btn{padding:8px 30px;border-radius:20px;font-weight:bold;font-size:13px;background:#222;color:#888;border:none;cursor:pointer;transition:all 0.2s}
-.nt-btn.act{color:#00e5ff;background:#111;box-shadow:inset 0px 0px 8px rgba(0, 229, 255, 0.2)}
-
-.card{background:#1a1a1a;border-radius:15px;padding:15px;margin-bottom:12px;border:1px solid #2a2a2a;box-shadow: 0px 5px 15px rgba(0,0,0,0.5);}
-.stat-hdr{color:#fff;font-weight:900;font-size:18px;margin-bottom:10px;text-shadow:0 0 10px #ff007f,0 0 20px #ff007f;letter-spacing:1px}
-.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;margin-top:5px;padding:0 10px;}
-
-.time-text { font-size: 26px; font-weight: bold; white-space: nowrap; background: linear-gradient(to right, #B38728 0%, #FBF5B7 50%, #B38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5)); }
-
-.center-murti{width:110px;height:110px;border-radius:50%;border:2px solid #FFD700;box-shadow:0 0 15px rgba(255,215,0,0.6);object-fit:cover;}
-.badge{font-size:10px;padding:4px 10px;border-radius:5px;font-weight:bold;background:#4caf50;color:#fff;text-align:center;}
+.nav-tabs{background:#1a1a1a;padding:12px;display:flex;justify-content:center;gap:15px;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,0.8)}
+.nt-btn{padding:10px 25px;border-radius:20px;font-weight:bold;font-size:14px;background:#2a2a2a;color:#888;border:none;cursor:pointer;transition:all 0.3s}
+.nt-btn.act{color:#00e5ff;background:#111;box-shadow:inset 2px 2px 5px #000;}
+.card{background:#1e1e1e;border-radius:15px;padding:12px;margin-bottom:12px;box-shadow:0 4px 8px rgba(0,0,0,0.5);border:1px solid #333}
+.stat-hdr{font-size: 22px;font-weight: bold;color: #ffffff;text-align:center;text-shadow:0px 0px 15px rgba(255, 50, 100, 0.9),0px 0px 5px rgba(255, 255, 255, 0.6);}
+.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;margin-top:5px;padding:0 5px;}
+.time-text { font-size: 28px; font-weight: bold; white-space: nowrap; background: linear-gradient(to right, #B38728 0%, #FBF5B7 25%, #B38728 50%, #FBF5B7 75%, #B38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6)); }
+.god-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700; box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.7); }
+.badge{font-size:10px;padding:4px 8px;border-radius:5px;font-weight:bold;background:#4caf50;color:#fff;}
 .badge.offline{background:#f44336}
-
-/* Top Status Pill */
-.status-pill { background: #111; color: #00e676; border-radius: 8px; padding: 8px; font-size: 13px; font-weight: bold; margin-top: 5px; border: 1px solid #222; }
-
-/* Grid Buttons */
+.status-msg{color:#00e676;font-weight:bold;font-size:15px;margin-top:8px;text-transform:uppercase; text-align: left; padding-left: 5px; background:#111; padding:8px; border-radius:8px;}
 .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.q-btn{border:none;border-radius:8px;padding:15px 5px;color:#fff;font-weight:bold;width:100%;cursor:pointer;font-size:14px;background:#222;transition:all 0.1s}
-.q-btn:active{transform:scale(0.96); opacity:0.8;}
-.b-blu{border-bottom:4px solid #2196f3}.b-org{border-bottom:4px solid #ff9800}.b-yel{border-bottom:4px solid #fbc02d;color:#fbc02d}.b-grn{border-bottom:4px solid #4caf50}.b-pur{border-bottom:4px solid #9c27b0}
+.q-btn{border:none;border-radius:12px;padding:12px 5px;color:#fff;font-weight:bold;width:100%;cursor:pointer;font-size:14px;background:#242424; transition:0.2s; box-shadow:0 4px 6px rgba(0,0,0,0.4)}
+.b-blu{border-bottom:5px solid #2196f3}.b-org{border-bottom:5px solid #ff9800}.b-yel{border-bottom:5px solid #fbc02d;}.b-grn{border-bottom:5px solid #2980b9}.b-pur{border-bottom:5px solid #9c27b0}
+.act-glow { border-bottom: 5px solid #00e676 !important; color: #00e676 !important; background: #111 !important; box-shadow: inset 0 -4px 10px rgba(0,230,118,0.2) !important;}
+.t-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sq-btn{width:45px;height:45px;border-radius:12px;background:#242424;color:#00e5ff;border:none;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.t-name{flex:1;background:#111;height:45px;margin:0 10px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#00e676;font-weight:bold;}
 
-/* Middle Player Section */
-.t-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
-.sq-btn{width:45px;height:45px;border-radius:8px;background:#222;color:#00e5ff;border:none;border-bottom:4px solid #00e5ff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.sq-btn:active{transform:scale(0.92);}
-.t-name{flex:1;background:#111;height:45px;margin:0 12px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#00e676;font-weight:bold;overflow:hidden;white-space:nowrap;border:1px solid #222;}
+.cir-row{display:flex;justify-content:space-between;align-items:center; gap:8px;}
+.cir-btn{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;border:none;background:#242424; cursor:pointer; transition:all 0.3s ease;}
+.b-rnd-pur{border-bottom:3px solid #9c27b0; box-shadow: 0px 4px 8px -2px rgba(156,39,176,0.4);}
+.b-rnd-org{border-bottom:3px solid #ff9800; box-shadow: 0px 4px 8px -2px rgba(255,152,0,0.4);}
+.b-rnd-red{border-bottom:3px solid #f44336; box-shadow: 0px 4px 8px -2px rgba(244,67,54,0.4);}
 
-/* Circular Controls with STOP button */
-.cir-row{display:flex;justify-content:space-between;align-items:center;padding:0 5px;}
-.cir-btn{width:50px;height:50px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;color:#fff;border:none;cursor:pointer;background:#222;transition:all 0.1s}
-.c-pur{color:#9c27b0;border-bottom:4px solid #9c27b0} 
-.c-org{color:#ff9800;border-bottom:4px solid #ff9800} 
-.c-red{color:#f44336;border-bottom:4px solid #f44336} /* Stop Button */
-.cir-btn:active {transform:scale(0.92);}
-.cir-btn.act{background:#111;color:#00e676;border-bottom:4px solid #00e676;}
+.active-btn { border-bottom: 3px solid #00e676 !important; box-shadow: 0px 5px 12px -2px rgba(0,230,118,0.7) !important; color: #00e676 !important; background:#1a1a1a !important; }
 
-/* Bottom Volume Row */
-.c-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px; gap:10px;}
-.tile-btn{flex:1;padding:12px 0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#aaa;border:none;cursor:pointer;background:#222;}
-.tile-btn .icon{font-size:16px;margin-right:5px;}
-.t-red{border-bottom:4px solid #f44336; color:#f44336;} .t-blu{border-bottom:4px solid #2196f3; color:#2196f3;}
-.tile-btn:active{transform:scale(0.95);}
+.modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:1000; overflow-y:auto; padding:20px; }
+.modal-content { background:#1e1e1e; border-radius:15px; padding:15px; border:2px solid #00e676; box-shadow: 0px 0px 15px rgba(0,230,118,0.3); max-width:600px; margin:auto; margin-bottom:40px; }
+.modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px; }
+.modal-header h2 { color:#00e676; margin:0; font-size:18px; }
+.close-btn { background:#f44336; color:#fff; border:none; padding:8px 15px; border-radius:8px; font-weight:bold; cursor:pointer; }
+.track-list-grid { display:flex; flex-direction:column; gap:8px; }
+.modal-trk-btn { padding:12px; background:#111; color:#00e5ff; border:1px solid #333; border-radius:8px; font-weight:bold; font-size:14px; text-align:left; cursor:pointer; transition:0.2s; }
+.modal-trk-btn:active { background:#00e676; color:#000; }
 
-.vol-box{width:60px;height:45px;background:#111;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#fbc02d;border:1px solid #333;}
-
-/* Footer */
-.footer-text{margin-top:20px;font-size:11px;color:#666;font-weight:bold;letter-spacing:1px;text-transform:uppercase;}
-
-/* Modal for Track Selection */
-.modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:999; justify-content:center; align-items:center; backdrop-filter: blur(5px); }
-.modal-content { background:#1e1e1e; width:92%; max-width:500px; height:85vh; border-radius:12px; border:2px solid #00e676; display:flex; flex-direction:column; box-shadow: 0 0 20px rgba(0, 230, 118, 0.2); }
-.modal-header { display:flex; justify-content:space-between; align-items:center; padding:15px; border-bottom:1px solid #333; }
-.modal-title { color:#00e676; font-weight:bold; font-size:16px; display:flex; align-items:center; gap:8px;}
-.close-btn { background:#f44336; color:#fff; border:none; padding:8px 15px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer; }
-.modal-body { padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
-.track-item { background:#111; color:#00bcd4; padding:15px; border-radius:8px; border:1px solid #2a2a2a; text-align:left; font-weight:bold; font-size:14px; cursor:pointer; transition:background 0.1s; }
-.track-item:active { background:#222; color:#fff; }
-
-#toast{visibility:hidden;background:#fff;color:#000;padding:12px 25px;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);border-radius:30px;z-index:99;font-weight:bold;font-size:13px;}
-.toast-show{visibility:visible!important;animation:fade 1.5s}
+.c-row{display:flex;justify-content:center;align-items:center;margin-bottom:12px; gap: 8px;}
+.tile-btn{flex:1; padding:10px 0;border-radius:12px;display:flex;flex-direction:column;align-items:center;font-size:11px;font-weight:bold;color:#aaa;background:#242424;border:none;}
+.vol-box{width:60px;height:45px;background:#111;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#fbc02d;}
+.st-tabs { display:flex; justify-content:center; gap:10px; margin-bottom:15px; }
+.st-tab { background:#333; color:#aaa; padding:10px 25px; border-radius:25px; font-weight:bold; font-size:13px; cursor:pointer;}
+.st-tab.active { background:#ff9800; color:#fff; }
+.s-card { background:#222; border-radius:12px; padding:15px; margin-bottom:12px; text-align:left; border-left:6px solid #555; position:relative; }
+.sc-grn { border-left-color: #4caf50; } .sc-yel { border-left-color: #fbc02d; }
+.sc-pur { border-left-color: #9c27b0; } .sc-org { border-left-color: #ff9800; } .sc-red { border-left-color: #f44336; }
+.s-title { font-size: 15px; font-weight: bold; color: #ddd; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.switch { position: relative; display: inline-block; width: 46px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #555; border-radius: 24px; transition: .3s; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .3s; }
+input:checked + .slider { background-color: #4caf50; }
+input:checked + .slider:before { transform: translateX(22px); }
+.t-sel-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; color:#aaa; font-size:13px; font-weight:bold; }
+.sel-box { display: flex; gap: 5px; }
+.sel-input { background: #333; color: #fff; border: 1px solid #444; border-radius: 6px; padding: 6px; font-weight: bold; font-size: 14px; outline:none; text-align:center; appearance: none; -webkit-appearance: none; }
+.s-btn { background: #4caf50; color: #fff; font-weight: bold; border: none; padding: 15px; border-radius: 12px; width: 100%; font-size: 16px; cursor: pointer; margin-top: 10px; }
+.s-note { font-size:12px; color:#00e5ff; background:#00232a; border-radius:8px; padding:10px; margin-bottom:15px; text-align:left; }
+#toast{visibility:hidden;background:#fff;color:#000;padding:12px 25px;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);border-radius:30px;z-index:99;font-weight:bold;}
+.toast-show{visibility:visible!important;animation:fade 2s}
 @keyframes fade{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
-
-/* Settings Section */
-#view-sett{display:none}
-.set-tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:15px}
-.set-tb{background:#111;border:1px solid #333;color:#888;padding:10px 30px;border-radius:20px;font-size:13px;font-weight:bold;cursor:pointer}
-.set-tb.act{background:#333;color:#00e676;border-color:#00e676}
-.set-cont{display:none}
-.set-cont.act{display:block}
-.cd{background:#1a1a1a;padding:12px;margin-bottom:12px;border-radius:12px;text-align:left;border:1px solid #333;border-left:4px solid #ff9800}
-.hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:bold;font-size:13px;color:#ff9800}
-.rw{display:flex;justify-content:space-between;align-items:center;margin-top:6px;background:#111;padding:8px;border-radius:6px;font-size:12px;}
-.sw{position:relative;display:inline-block;width:36px;height:20px}
-.sw input{opacity:0;width:0;height:0}
-.sw span{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#555;transition:.3s;border-radius:20px}
-.sw span:before{position:absolute;content:'';height:16px;width:16px;left:2px;bottom:2px;background:#ccc;transition:.3s;border-radius:50%}
-input:checked+span{background:#4caf50}
-input:checked+span:before{transform:translateX(16px);background:#fff}
-.sync-btn{background:#4caf50;color:#fff;border:none;padding:15px;width:100%;border-radius:15px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:10px}
 </style>
 </head>
 <body>
+<div id="fldModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>&#128194; SELECT TRACK</h2>
+      <button class="close-btn" onclick="closeFolder()">✖ CLOSE</button>
+    </div>
+    <div class="track-list-grid" id="trackListGrid"></div>
+  </div>
+</div>
 
 <div class="nav-tabs">
   <button class="nt-btn act" id="tab-dash" onclick="switchView('dash')">CONTROL</button>
   <button class="nt-btn" id="tab-sett" onclick="switchView('sett')">SETTING</button>
 </div>
-
 <div class="c">
-  <!-- DASHBOARD VIEW -->
   <div id="view-dash">
-    
-    <div class="card" style="border:none; background:transparent; padding:5px;">
-      <div class="stat-hdr">🔴🙏 RAMESHWAR 🙏🔴</div>
-      <div class="stat-row">
+    <div class="card">
+      <div class="stat-hdr">&#128308;&#128591; RAMESHWAR &#128591;&#128308;</div>
+      <div class="stat-row"> 
         <div id="clock" class="time-text">--:--</div>
-        <div style="position:relative;">
-          <img src="./icon-192.png" class="center-murti" alt="Bhagwan">
-          <span id="netBadge" class="badge offline" style="position:absolute;right:-20px;top:45px;">WAIT</span>
-        </div>
+        <img id="godImg" class="god-img" src="./icon-192.png" alt="God">
+        <div class="badge-col"><span id="netBadge" class="badge offline">CONNECTING...</span></div>
       </div>
-      <div class="status-pill" id="statusPill">WAITING...</div>
+      <div id="statusMsg" class="status-msg">WAITING...</div>
     </div>
 
     <div class="q-grid">
-      <button class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
-      <button class="q-btn b-org" onclick="cmd(8)">Arti & Jay</button>
-      <button class="q-btn b-yel" onclick="cmd(4)">Today's Arti</button>
-      <button class="q-btn b-blu" onclick="cmd(5)">Today's Godi</button>
-      <button class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
-      <button class="q-btn b-grn" onclick="cmd(7)">Dhun Evening</button>
-      <button class="q-btn b-org" onclick="cmd(12)">H. Chalisa 1</button>
-      <button class="q-btn b-org" onclick="cmd(13)">H. Chalisa 2</button>
+      <button id="btn-3" class="q-btn b-blu" onclick="cmd(3)">Mangla</button>
+      <button id="btn-8" class="q-btn b-org" onclick="cmd(8)">Arti & Jay</button>
+      <button id="btn-4" class="q-btn b-yel" onclick="cmd(4)">Today's Arti</button>
+      <button id="btn-5" class="q-btn b-grn" onclick="cmd(5)">Today's Godi</button>
+      <button id="btn-6" class="q-btn b-pur" onclick="cmd(6)">Dhun Morning</button>
+      <button id="btn-7" class="q-btn b-pur" onclick="cmd(7)">Dhun Evening</button>
+      <button id="btn-12" class="q-btn b-org" onclick="cmd(12)">H. Chalisa 1</button>
+      <button id="btn-13" class="q-btn b-org" onclick="cmd(13)">H. Chalisa 2</button>
     </div>
-    
+
     <div class="card">
       <div class="t-row">
-        <button class="sq-btn" onclick="cmd(19)">⏮</button>
-        <div class="t-name" id="trackName">WAITING...</div>
-        <button class="sq-btn" onclick="cmd(18)">⏭</button>
+        <button class="sq-btn b-blu" onclick="cmd(19)">&#9198;</button>
+        <div class="t-name" id="trackName">-</div>
+        <button class="sq-btn b-blu" onclick="cmd(18)">&#9197;</button>
       </div>
-      
-      <div class="cir-row">
-        <button class="cir-btn c-pur" onclick="openTrackModal()">📂</button>
-        <button class="cir-btn c-org" id="btnShuf" onclick="cmd(21)">🔀</button>
-        <button class="cir-btn c-org" id="btnRep" onclick="cmd(20)">🔁</button>
-        <button class="cir-btn c-pur" id="btnMute" onclick="cmd(22)">🔊</button>
-        <button class="cir-btn c-red" id="btnStop" onclick="cmd(16)">⏹</button>
+
+      <div class="cir-row" style="margin-top: 20px; margin-bottom: 10px;">
+        <button id="btnFld" class="cir-btn b-rnd-pur" onclick="openFolder()">&#128193;</button>
+        <button id="btnShuf" class="cir-btn b-rnd-org" onclick="cmd(21)">&#128256;</button>
+        <button id="btnRep" class="cir-btn b-rnd-org" onclick="cmd(20)">&#128257;</button>
+        <button id="btnMute" class="cir-btn b-rnd-pur" onclick="cmd(22)">&#128266;</button>
+        <!-- સ્ટોપ બટન: 1st ક્લિક = STOP, 2nd ક્લિક = UN-STOP (મૂળ પોજીશન) -->
+        <button id="btnStop" class="cir-btn b-rnd-red" onclick="cmd(2)">&#9209;</button>
       </div>
     </div>
-    
-    <div class="c-row">
-      <button class="tile-btn t-red" onclick="cmd(17)"><span class="icon">💫</span>RESTART</button>
-      <button class="tile-btn t-blu" onclick="cmd(10)"><span class="icon">➖</span>VOL -</button>
-      <div class="vol-box" id="volNum">19</div>
-      <button class="tile-btn t-blu" onclick="cmd(9)"><span class="icon">➕</span>VOL +</button>
+
+    <div class="card">
+      <div class="c-row" style="margin-bottom:0">
+        <button class="tile-btn" style="border-bottom:4px solid #f44336;" onclick="cmd(17)">&#128171; RESTART</button>
+        <button class="tile-btn" style="border-bottom:4px solid #2196f3;" onclick="cmd(10)">&#10134; VOL -</button>
+        <div class="vol-box" id="volNum">--</div>
+        <button class="tile-btn" style="border-bottom:4px solid #2196f3;" onclick="cmd(9)">&#10133; VOL +</button>
+      </div>
     </div>
-    
-    <div class="footer-text">RAMESHWAR MAKKHAN EDITION PRO (SMARAN V2)</div>
+    <div style='margin-top:25px;font-size:14px;color:#888;font-weight:bold;letter-spacing:1px;'>RAMESHWAR ONLINE (SMARAN CLOUD)</div>
   </div>
 
-  <!-- SETTINGS VIEW -->
-  <div id="view-sett">
-    <div class="set-tabs">
-      <button class="set-tb act" onclick="openSetTab('g', this)">MAIN TIMER</button>
-      <button class="set-tb" onclick="openSetTab('lk', this)">LOCK SLOTS</button>
+  <div id="view-sett" style="display:none;">
+    <div style="color:#00e5ff; font-weight:bold; font-size:16px; margin-bottom:15px;">&#9881; SETTINGS PANEL (ONLINE)</div>
+    <div class="s-note">🌍 અહીંથી બદલેલા Settings સેવ કરો કે તરત જ ડિવાઈસ સુધી (ઘરે) પહોંચી જશે — ડિવાઈસ દર અડધી સેકન્ડે ચેક કરે છે.</div>
+    <div class="st-tabs">
+      <div id="tab-mt" class="st-tab active" onclick="swT('mt')">MAIN TIMER</div>
+      <div id="tab-ls" class="st-tab" onclick="swT('ls')">4 ACTIVE SLOTS</div>
     </div>
-    <div id="settings-container"></div>
-    <button class="sync-btn" onclick="syncSettingsToCloud()">💾 SAVE SETTINGS</button>
+
+    <div id="sec-mt">
+      <script>
+        function drawOpts(type) {
+            let h = "";
+            if(type=='H') { for(let i=1;i<=12;i++) h+=`<option value="${i}">${i<10?'0'+i:i}</option>`; }
+            if(type=='M') { for(let i=0;i<60;i++) h+=`<option value="${i}">${i<10?'0'+i:i}</option>`; }
+            if(type=='A') { h=`<option value=" AM"> AM</option><option value=" PM"> PM</option>`; }
+            return h;
+        }
+        function drawCard(id, title, color, hasEnd=true) {
+            document.write(`
+            <div class="s-card ${color}">
+              <div class="s-title"><span style="${color==='sc-grn'?'color:#4caf50;':(color==='sc-yel'?'color:#fbc02d;':(color==='sc-pur'?'color:#9c27b0;':(color==='sc-red'?'color:#f44336;':'color:#ff9800;')))}">${title}</span> <label class="switch"><input type="checkbox" id="en_${id}"><span class="slider"></span></label></div>
+              <div class="t-sel-row">
+                <span>START</span>
+                <div class="sel-box">
+                  <select class="sel-input" id="${id}SH">${drawOpts('H')}</select> <span style="color:#fff">:</span>
+                  <select class="sel-input" id="${id}SM">${drawOpts('M')}</select>
+                  <select class="sel-input" id="${id}SA">${drawOpts('A')}</select>
+                </div>
+              </div>
+              ${hasEnd ? `
+              <div class="t-sel-row">
+                <span>STOP</span>
+                <div class="sel-box">
+                  <select class="sel-input" id="${id}EH">${drawOpts('H')}</select> <span style="color:#fff">:</span>
+                  <select class="sel-input" id="${id}EM">${drawOpts('M')}</select>
+                  <select class="sel-input" id="${id}EA">${drawOpts('A')}</select>
+                </div>
+              </div>` : ''}
+            </div>`);
+        }
+        drawCard('gd', 'Auto Godi', 'sc-grn');
+        drawCard('sun', 'Sunday Godi', 'sc-grn', false);
+        drawCard('md', 'Morning Dhun', 'sc-yel');
+        drawCard('ed', 'Evening Dhun', 'sc-pur');
+        drawCard('sd', 'Sunday Dhun', 'sc-pur');
+        drawCard('hc1', 'H. Chalisa 1', 'sc-org');
+        drawCard('hc2', 'H. Chalisa 2', 'sc-org');
+      </script>
+    </div>
+
+    <div id="sec-ls" style="display:none;">
+      <script>
+        drawCard('u1', 'Active Slot 1', 'sc-red');
+        drawCard('u2', 'Active Slot 2', 'sc-red');
+        drawCard('u3', 'Active Slot 3', 'sc-red');
+        drawCard('u4', 'Active Slot 4', 'sc-red');
+      </script>
+    </div>
+    <button class="s-btn" onclick="saveSettings()">💾 SAVE & SYNC TO DEVICE</button>
   </div>
 </div>
-
-<!-- TRACK SELECTION MODAL -->
-<div id="trackModal" class="modal-overlay">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-title">📂 SELECT TRACK</div>
-      <button class="close-btn" onclick="closeTrackModal()">✖ CLOSE</button>
-    </div>
-    <div class="modal-body" id="trackListDiv">
-      <!-- Tracks will load here -->
-    </div>
-  </div>
-</div>
-
 <div id="toast"></div>
 
 <script>
-// Firebase Config (Keep your credentials)
-const FB_CONFIG = { 
-  apiKey: "AIzaSyDCH0BCvuR1VafR1HaJ_JedVED1pP2ri-k", 
-  authDomain: "rameshwar-smaran.firebaseapp.com", 
-  databaseURL: "https://rameshwar-smaran-default-rtdb.firebaseio.com",
-  projectId: "rameshwar-smaran", 
-  storageBucket: "rameshwar-smaran.appspot.com", 
-  messagingSenderId: "223803905988", 
-  appId: "1:223803905988:web:aa0138f5050b91e9e43691" 
+const firebaseConfig = {
+  apiKey: "AIzaSyDCH0BCvuR1VafR1HaJ_JedVED1pP2ri-k",
+  databaseURL: "https://rameshwar-smaran-default-rtdb.firebaseio.com"
 };
-const TRACKS = ["ORDA-SARADHAR","ORA AAVO-GURUJI","ORDA-KUNDAL","MHATMAY CHINTA","SUKH CHINTA MANI","MURTI CHINTA MANI","BLANCK","TERE DWAR apadyo","NVAL SNEHI nathji","Shriji daya karo","Aekalda kem rahevay","Prabhu tam vina","Tum mere swami","Kyare have dekhu","Dukhi divas ne rat","Mara nath mara nath","Aakhadiyo aklay","Dhun_Amrut swami","DHUN VED mandir","JAMO JAMO mara","CHESHTA","RAM & CHESHTA","Track 23","Track 24","Track 25","Track 26","Track 27","Track 28","Track 29","Track 30","Track 31","Track 32","Track 33","Track 34","Track 35","Track 36","Track 37","Track 38","Track 39","Track 40"];
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-const S_CONF = [
-  { t:'g', id:'gd', type:'slot', lbl:'Auto Godi', c:'#388e3c', v:['gPH','gPM','gPEH','gPEM','enGD'] },
-  { t:'g', id:'md', type:'slot', lbl:'Morning Dhun', c:'#fbc02d', v:['mDhSH','mDhSM','mDhEH','mDhEM','enMDh'] },
-  { t:'g', id:'ed', type:'slot', lbl:'Evening Dhun', c:'#7b1fa2', v:['eDhSH','eDhSM','eDhEH','eDhEM','enEDh'] },
-  { t:'g', id:'hc1', type:'slot', lbl:'H. Chalisa 1', c:'#ff5722', v:['hc1SH','hc1SM','hc1EH','hc1EM','enHc1'] },
-  { t:'g', id:'hc2', type:'slot', lbl:'H. Chalisa 2', c:'#ff5722', v:['hc2SH','hc2SM','hc2EH','hc2EM','enHc2'] },
-  { t:'lk', id:'bl1', type:'slot', lbl:'L1: Everyday', c:'#d32f2f', v:['bl1SH','bl1SM','bl1EH','bl1EM','enBl1'] },
-  { t:'lk', id:'bl2', type:'slot', lbl:'L2: Everyday', c:'#d32f2f', v:['bl2SH','bl2SM','bl2EH','bl2EM','enBl2'] },
-  { t:'lk', id:'bl3', type:'slot', lbl:'L3: Everyday', c:'#d32f2f', v:['bl3SH','bl3SM','bl3EH','bl3EM','enBl3'] }
-];
+let isSending = false;
+function toast(m) { let t=document.getElementById("toast"); t.innerText=m; t.className="toast-show"; setTimeout(()=>t.className="",2000); }
 
-let db, cmdRef, statusRef, setRef, isConnected=false, lastStatusTime = 0;
-
-// ટ્રેક લિસ્ટને નવા પોપઅપમાં લોડ કરવાનું ફંક્શન
-function loadTrackListModal() {
-  const listDiv = document.getElementById("trackListDiv");
-  listDiv.innerHTML = '';
-  TRACKS.forEach((t, i) => {
-    let btn = document.createElement("div");
-    btn.className = "track-item";
-    btn.innerText = (i + 1) + ". " + t;
-    btn.onclick = () => { 
-      cmd(1, 4, i + 1); // ટ્રેક પ્લે કમાન્ડ
-      closeTrackModal(); 
-    };
-    listDiv.appendChild(btn);
-  });
+function switchView(v) {
+  document.getElementById('view-dash').style.display = v==='dash'?'block':'none';
+  document.getElementById('view-sett').style.display = v==='sett'?'block':'none';
+  document.getElementById('tab-dash').classList.toggle('act',v==='dash');
+  document.getElementById('tab-sett').classList.toggle('act',v==='sett');
+  if(v==='sett') loadSettingsIntoUI();
+}
+function swT(t) {
+    document.getElementById('sec-mt').style.display = t==='mt'?'block':'none';
+    document.getElementById('sec-ls').style.display = t==='ls'?'block':'none';
+    document.getElementById('tab-mt').className = t==='mt' ? 'st-tab active' : 'st-tab';
+    document.getElementById('tab-ls').className = t==='ls' ? 'st-tab active' : 'st-tab';
 }
 
-function openTrackModal() { document.getElementById("trackModal").style.display = 'flex'; }
-function closeTrackModal() { document.getElementById("trackModal").style.display = 'none'; }
-
-// 0.0 Delay Command Function 
-function cmd(actionName, folder = 0, track = 0) { 
-  toast("Command Sent!"); 
-
-  if (navigator.onLine && isConnected) {
-      cmdRef.set({action: actionName, folder: folder, track: track, timestamp: Date.now()}); 
-  } else {
-      fetch(`http://192.168.4.8/cmd?action=${actionName}&folder=${folder}&track=${track}`, { mode: 'no-cors' })
-        .catch(e => console.log("ESP Offline"));
+function openFolder() {
+  const f4T = ["ORDA-SARADHAR","ORA AAVO-GURUJI","ORDA-KUNDAL","MHATMAY CHINTA","SUKH CHINTA MANI","MURTI CHINTA MANI","BLANCK","TERE DWAR apadyo","NVAL SNEHI nathji","Shriji daya karo","Aekalda kem rahevay","Prabhu tam vina","Tum mere swami","Kyare have dekhu","Dukhi divas ne rat","Mara nath mara nath","Aakhadiyo aklay","Dhun_Amrut swami","DHUN VED mandir","JAMO JAMO mara","CHESHTA","RAM & CHESHTA","Track 23","Track 24","Track 25","Track 26","Track 27","Track 28","Track 29","Track 30","Track 31","Track 32","Track 33","Track 34","Track 35","Track 36","Track 37","Track 38","Track 39","Track 40"];
+  const grid = document.getElementById('trackListGrid');
+  if(!grid.dataset.built){
+    let h="";
+    for(let i=0;i<40;i++){ h+=`<button class="modal-trk-btn" onclick="playSelectedTrack(${i+1})">${i+1}. ${f4T[i]}</button>`; }
+    grid.innerHTML = h; grid.dataset.built = "1";
   }
+  document.getElementById('fldModal').style.display = 'block';
+}
+function closeFolder() { document.getElementById('fldModal').style.display = 'none'; }
+function playSelectedTrack(trackNum) { cmd(1, 4, trackNum); closeFolder(); }
+
+// 🟢 કમાન્ડ સીધો Firebase માં લખાય છે — ડિવાઈસ દર 0.5 સેકન્ડે ચેક કરે છે અને પોતે ડિલીટ કરી નાખે છે 🟢
+function cmd(a, f=0, t=0) {
+  if(isSending) return; isSending = true;
+  db.ref('/smaran_v1/command').set({ action: a, folder: f, track: t })
+    .then(()=>{ toast("Sent: "+a); isSending=false; })
+    .catch(()=>{ toast("Send Failed!"); isSending=false; });
 }
 
-// બાકીના ફંક્શન (ઘડિયાળ, ફાયરબેઝ, સેટિંગ્સ)
-function updateLocalClock() {
-  const now = new Date(); const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-  let h12 = now.getHours() % 12 || 12; let ampm = now.getHours() >= 12 ? " PM" : " AM";
-  let m = now.getMinutes().toString().padStart(2, '0'); let s = now.getSeconds().toString().padStart(2, '0');
-  document.getElementById("clock").innerText = `${days[now.getDay()]} ${h12}:${m}:${s}${ampm}`;
-  
-  let nb = document.getElementById("netBadge");
-  if (Date.now() - lastStatusTime < 10000) {
-    nb.className = "badge"; nb.innerText = "ONLINE";
-  } else if (!navigator.onLine) {
-    nb.className = "badge offline"; nb.innerText = "OFFLINE";
+// 🟢 લાઈવ સ્ટેટસ — Firebase realtime listener (ડિવાઈસ દર 1.2 સેકન્ડે /smaran_v1/status અપડેટ કરે છે) 🟢
+// ટ્રેક ટાઈમર ને દર સેકન્ડે UI માં જ ટિક કરીએ છીએ જેથી કાઉન્ટર "કરંટ" દેખાય, Firebase ping ની રાહ ન જોવી પડે
+let lastStatusAt = 0;
+let localTickBase = null;
+let curPlaying = false;
+
+db.ref('/smaran_v1/status').on('value', (snap) => {
+  const d = snap.val();
+  if(!d) return;
+  lastStatusAt = Date.now();
+  document.getElementById("clock").innerText = d.time || '--:--';
+  document.getElementById("volNum").innerText = (d.volume !== undefined ? d.volume : '--');
+  curPlaying = !!d.playing;
+
+  let raw = d.statusMsg || '';
+  let m = raw.match(/^(.*)\[(\d+):(\d+)\]$/);
+  if(m && curPlaying){
+    localTickBase = { prefix: m[1], startSec: (parseInt(m[2])*60 + parseInt(m[3])), setAt: Date.now() };
   } else {
-    nb.className = "badge offline"; nb.innerText = "LOCAL";
+    localTickBase = null;
+    document.getElementById("statusMsg").innerText = raw;
+    document.getElementById("trackName").innerText = raw;
   }
-}
-setInterval(updateLocalClock, 1000);
 
-function initFB() {
-  firebase.initializeApp(FB_CONFIG); db = firebase.database();
-  cmdRef = db.ref("/smaran_v1/command"); statusRef = db.ref("/smaran_v1/status"); setRef = db.ref("/smaran_v1/settings");
-  firebase.auth().signInAnonymously().then(() => { isConnected=true; listenStatus(); });
+  let bs = document.getElementById("btnShuf"); bs.classList.toggle("active-btn", !!d.isShuffle);
+  let br = document.getElementById("btnRep"); br.classList.toggle("active-btn", !!d.isRepeat);
+  let bm = document.getElementById("btnMute"); bm.classList.toggle("active-btn", !!d.isMute);
+  let bstop = document.getElementById("btnStop"); bstop.classList.toggle("active-btn", !d.playing);
+
+  const activeBtns = [3, 8, 4, 5, 6, 7, 12, 13];
+  activeBtns.forEach(id => {
+    let b = document.getElementById("btn-" + id);
+    if(b) b.classList.toggle("act-glow", !!(d.playing && d.activeCmd === id));
+  });
+});
+
+// 🟢 દર સેકન્ડે ટ્રેક ટાઈમર લોકલી ટિક કરો — "લાઈવ" કાઉન્ટર દેખાય, Firebase delay ની અસર ન થાય 🟢
+setInterval(() => {
+  if(localTickBase && curPlaying){
+    let elapsed = Math.floor((Date.now() - localTickBase.setAt)/1000);
+    let total = localTickBase.startSec + elapsed;
+    let tm = Math.floor(total/60), ts = total%60;
+    let txt = localTickBase.prefix + '[' + (tm<10?'0':'')+tm + ':' + (ts<10?'0':'')+ts + ']';
+    document.getElementById("statusMsg").innerText = txt;
+    document.getElementById("trackName").innerText = txt;
+  }
+}, 1000);
+
+// 🟢 દર 3 સેકન્ડે ચેક કરો — છેલ્લું સ્ટેટસ 6 સેકન્ડથી જૂનું હોય તો ડિવાઈસ OFFLINE ગણવું 🟢
+setInterval(() => {
+  const nb = document.getElementById('netBadge');
+  const isFresh = lastStatusAt > 0 && (Date.now() - lastStatusAt < 6000);
+  if(isFresh){ nb.className='badge'; nb.innerText='ONLINE'; }
+  else { nb.className='badge offline'; nb.innerText='DEVICE OFFLINE'; }
+}, 3000);
+
+function setT(id, h24, m) {
+    let ampm = h24 >= 12 ? ' PM' : ' AM';
+    let h12 = h24 % 12; if(h12===0) h12 = 12;
+    if(document.getElementById(id+'H')) document.getElementById(id+'H').value = h12;
+    if(document.getElementById(id+'M')) document.getElementById(id+'M').value = m;
+    if(document.getElementById(id+'A')) document.getElementById(id+'A').value = ampm;
+}
+function getT(id) {
+    let h = parseInt(document.getElementById(id+'H').value);
+    let m = parseInt(document.getElementById(id+'M').value);
+    let a = document.getElementById(id+'A').value;
+    if(a===' PM' && h<12) h+=12;
+    if(a===' AM' && h===12) h=0;
+    return {h, m};
 }
 
-function listenStatus() {
-  statusRef.on("value", snap => {
-    if (!snap.exists()) return; 
-    const d = snap.val(); 
-    lastStatusTime = Date.now(); 
-    
-    if(d.statusMsg) {
-        document.getElementById("statusPill").innerText = d.statusMsg;
-        document.getElementById("trackName").innerText = d.statusMsg;
-    }
-    if(d.volume !== undefined) {
-        document.getElementById("volNum").innerText = d.volume;
-    }
-    document.getElementById("btnRep").classList.toggle("act", d.isRepeat == 1);
-    document.getElementById("btnShuf").classList.toggle("act", d.isShuffle == 1);
+// 🟢 Settings સીધા Firebase /smaran_v1/settings માંથી લોડ કરો (ડિવાઈસ પોતે જ પુશ કરેલા છે) 🟢
+function loadSettingsIntoUI() {
+  db.ref('/smaran_v1/settings').once('value').then(snap=>{
+    const s = snap.val() || {};
+    document.getElementById("en_gd").checked = !!s.enGD; setT('gdS', s.gPH||0, s.gPM||0); setT('gdE', s.gPEH||0, s.gPEM||0);
+    document.getElementById("en_sun").checked = !!s.enSunG; setT('sunS', s.sunGH||0, s.sunGM||0);
+    document.getElementById("en_md").checked = !!s.enMDh; setT('mdS', s.mDhSH||0, s.mDhSM||0); setT('mdE', s.mDhEH||0, s.mDhEM||0);
+    document.getElementById("en_ed").checked = !!s.enEDh; setT('edS', s.eDhSH||0, s.eDhSM||0); setT('edE', s.eDhEH||0, s.eDhEM||0);
+    document.getElementById("en_sd").checked = !!s.enDS; setT('sdS', s.dhSH||0, s.dhSM||0); setT('sdE', s.dhEH||0, s.dhEM||0);
+    document.getElementById("en_hc1").checked = !!s.enHC1; setT('hc1S', s.hc1SH||0, s.hc1SM||0); setT('hc1E', s.hc1EH||0, s.hc1EM||0);
+    document.getElementById("en_hc2").checked = !!s.enHC2; setT('hc2S', s.hc2SH||0, s.hc2SM||0); setT('hc2E', s.hc2EH||0, s.hc2EM||0);
+    document.getElementById("en_u1").checked = !!s.enUn1; setT('u1S', s.un1SH||0, s.un1SM||0); setT('u1E', s.un1EH||0, s.un1EM||0);
+    document.getElementById("en_u2").checked = !!s.enUn2; setT('u2S', s.un2SH||0, s.un2SM||0); setT('u2E', s.un2EH||0, s.un2EM||0);
+    document.getElementById("en_u3").checked = !!s.enUn3; setT('u3S', s.un3SH||0, s.un3SM||0); setT('u3E', s.un3EH||0, s.un3EM||0);
+    document.getElementById("en_u4").checked = !!s.enUn4; setT('u4S', s.un4SH||0, s.un4SM||0); setT('u4E', s.un4EH||0, s.un4EM||0);
   });
 }
 
-function genSettings() {
-  let html = {'g':'', 'lk':''};
-  S_CONF.forEach(c => {
-    let cd = `<div class='cd' style='border-left-color:${c.c}'><div class='hd'><span style='color:${c.c}'>${c.lbl}</span><label class='sw'><input type='checkbox' id='${c.id}_en'><span></span></label></div>`;
-    cd += `<div class='rw'><span>START</span><div><select id='${c.id}_s_h'>${Array.from({length:12},(_,i)=>`<option>${i+1}</option>`).join('')}</select> : <select id='${c.id}_s_m'>${Array.from({length:60},(_,i)=>`<option>${i<10?'0'+i:i}</option>`).join('')}</select></div></div>`;
-    html[c.t] += cd + `</div>`;
-  });
-  const cont = document.getElementById('settings-container');
-  ['g','lk'].forEach(t => { 
-    let div=document.createElement('div'); div.className=`set-cont ${t==='g'?'act':''}`; div.id='tc-'+t; div.innerHTML=html[t]; cont.appendChild(div); 
-  });
+// 🟢 Settings Firebase માં લખો, પછી action:100 મોકલો — ડિવાઈસ 0.5 સેકન્ડમાં ઉપાડી, લાગુ કરી, કાયમ સેવ કરી લેશે 🟢
+function saveSettings() {
+  let gdS=getT('gdS'), gdE=getT('gdE'), sunS=getT('sunS');
+  let mdS=getT('mdS'), mdE=getT('mdE'), edS=getT('edS'), edE=getT('edE'), sdS=getT('sdS'), sdE=getT('sdE');
+  let h1S=getT('hc1S'), h1E=getT('hc1E'), h2S=getT('hc2S'), h2E=getT('hc2E');
+  let u1S=getT('u1S'), u1E=getT('u1E'), u2S=getT('u2S'), u2E=getT('u2E'), u3S=getT('u3S'), u3E=getT('u3E'), u4S=getT('u4S'), u4E=getT('u4E');
+
+  const payload = {
+    enGD: document.getElementById("en_gd").checked?1:0, gPH:gdS.h, gPM:gdS.m, gPEH:gdE.h, gPEM:gdE.m,
+    enSunG: document.getElementById("en_sun").checked?1:0, sunGH:sunS.h, sunGM:sunS.m,
+    enMDh: document.getElementById("en_md").checked?1:0, mDhSH:mdS.h, mDhSM:mdS.m, mDhEH:mdE.h, mDhEM:mdE.m,
+    enEDh: document.getElementById("en_ed").checked?1:0, eDhSH:edS.h, eDhSM:edS.m, eDhEH:edE.h, eDhEM:edE.m,
+    enDS: document.getElementById("en_sd").checked?1:0, dhSH:sdS.h, dhSM:sdS.m, dhEH:sdE.h, dhEM:sdE.m,
+    enHC1: document.getElementById("en_hc1").checked?1:0, hc1SH:h1S.h, hc1SM:h1S.m, hc1EH:h1E.h, hc1EM:h1E.m,
+    enHC2: document.getElementById("en_hc2").checked?1:0, hc2SH:h2S.h, hc2SM:h2S.m, hc2EH:h2E.h, hc2EM:h2E.m,
+    enUn1: document.getElementById("en_u1").checked?1:0, un1SH:u1S.h, un1SM:u1S.m, un1EH:u1E.h, un1EM:u1E.m,
+    enUn2: document.getElementById("en_u2").checked?1:0, un2SH:u2S.h, un2SM:u2S.m, un2EH:u2E.h, un2EM:u2E.m,
+    enUn3: document.getElementById("en_u3").checked?1:0, un3SH:u3S.h, un3SM:u3S.m, un3EH:u3E.h, un3EM:u3E.m,
+    enUn4: document.getElementById("en_u4").checked?1:0, un4SH:u4S.h, un4SM:u4S.m, un4EH:u4E.h, un4EM:u4E.m
+  };
+
+  db.ref('/smaran_v1/settings').set(payload).then(()=>{
+    return db.ref('/smaran_v1/command').set({ action: 100, folder: 0, track: 0 });
+  }).then(()=>{
+    toast("Settings Saved & Synced!"); switchView('dash');
+  }).catch(()=>{ toast("Save Failed!"); });
 }
-
-function switchView(v) { document.getElementById('view-dash').style.display = v==='dash'?'block':'none'; document.getElementById('view-sett').style.display = v==='sett'?'block':'none'; document.getElementById('tab-dash').classList.toggle('act',v==='dash'); document.getElementById('tab-sett').classList.toggle('act',v==='sett'); }
-function openSetTab(id, b) { document.querySelectorAll('.set-cont').forEach(e=>e.classList.remove('act')); document.querySelectorAll('.set-tb').forEach(e=>e.classList.remove('act')); document.getElementById('tc-'+id).classList.add('act'); b.classList.add('act'); }
-function toast(m) { let t=document.getElementById("toast"); t.innerText=m; t.className="toast-show"; setTimeout(()=>t.className="",1500); }
-
-window.onload = () => {
-    genSettings();
-    loadTrackListModal();
-    initFB();
-};
 </script>
-</body>
-</html>
+</body></html>
