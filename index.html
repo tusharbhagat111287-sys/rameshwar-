@@ -19,6 +19,9 @@ body{font-family:'Segoe UI',sans-serif;background:#121212;color:#e0e0e0;margin:0
 .stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;margin-top:5px;padding:0 5px;}
 .time-text { font-size: 28px; font-weight: bold; white-space: nowrap; background: linear-gradient(to right, #B38728 0%, #FBF5B7 25%, #B38728 50%, #FBF5B7 75%, #B38728 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6)); }
 .god-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700; box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.7); }
+.murti-wrap { position: relative; width: 106px; height: 106px; display: flex; align-items: center; justify-content: center; }
+.murti-wrap:before { content: ''; position: absolute; width: 106px; height: 106px; border-radius: 50%; border: 3px dashed #FFD700; animation: spin 10s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .badge{font-size:10px;padding:4px 8px;border-radius:5px;font-weight:bold;background:#4caf50;color:#fff;}
 .badge.offline{background:#f44336}
 .status-msg{color:#00e676;font-weight:bold;font-size:15px;margin-top:8px;text-transform:uppercase; text-align: left; padding-left: 5px; background:#111; padding:8px; border-radius:8px;}
@@ -94,7 +97,7 @@ input:checked + .slider:before { transform: translateX(22px); }
       <div class="stat-hdr">&#128308;&#128591; RAMESHWAR &#128591;&#128308;</div>
       <div class="stat-row"> 
         <div id="clock" class="time-text">--:--</div>
-        <img id="godImg" class="god-img" src="./icon-192.png" alt="God">
+        <div class="murti-wrap"><img id="godImg" class="god-img" src="./icon-192.png" alt="God"></div>
         <div class="badge-col"><span id="netBadge" class="badge offline">CONNECTING...</span></div>
       </div>
       <div id="statusMsg" class="status-msg">WAITING...</div>
